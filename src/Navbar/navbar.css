@@ -1,0 +1,479 @@
+
+
+.zomato-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: Helvetica, sans-serif;
+  }
+  
+ 
+.logo-container {
+    flex: 1;
+    display: flex;
+    justify-content:flex-end;
+    align-items: center;
+    margin-right: 1.5vw;
+  }
+  
+  
+  .zomato-logo {
+    width: 130px;
+    height: auto;
+    margin-top: 1vw;
+    justify-content: center;
+  }
+  
+  .search-wrap {
+    margin-top: 1vw;
+    border-radius: 0.7vw;
+    flex: 2.5;
+    display: flex;
+    align-items: center;
+    padding: 0.7vw;
+    font-size: 14px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15); /* Add a box shadow */
+  }
+  
+  
+  .location-search,
+  .restaurant-search {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+  }
+  
+  .location-search svg,
+  .restaurant-search svg {
+    margin-right: 10px;
+  }
+  
+
+  
+  .location-search input[type="text"] {
+    width: 180px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    outline: none;
+  }
+  
+  .restaurant-search input[type="text"] {
+    width: 250px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    outline: none;
+  }
+  
+  .auth-section {
+    flex: 1.5;
+    display: flex;
+    justify-content: space-evenly;
+    font-size: 19px;
+    margin-top: 1vw;
+  }
+  
+  .auth-section span {
+    margin-left: 20px;
+    cursor: pointer;
+    color:rgba(0, 0, 0, 0.5);
+    font-size: 1.4vw;
+    
+  }
+/*   
+  @media screen and (max-width: 768px) {
+    .search-wrap {
+      width: 100%;
+    }
+  
+    .location-search,
+    .restaurant-search {
+      width: 100%;
+    }
+  
+    .location-search input[type="text"],
+    .restaurant-search input[type="text"] {
+      width: 100%;
+    }
+  
+    .auth-section {
+      width: 100%;
+    }
+    .auth-section span {
+       width: 100%;
+      }
+      
+  }
+   */
+
+   .overlay{
+    /* padding: 1.33rem 0px 0px 0px ; */
+    position: absolute;
+    /* width: 100%; */
+     background-color: aqua;
+     color: black;
+     z-index: 1;
+     margin-left: 190px;
+    margin-top: 120px;
+     width: 100px ;
+     border-radius: 0px 0px 1rem 1rem; 
+     animation: slideIn12 0.3s forwards;
+    transition: transform 0.3s;  
+    overflow: hidden;
+  }
+  @keyframes slideIn12 {
+    from {
+      opacity: 0;
+      height:0;
+    }
+    to {
+      opacity: 1;
+      height:  400px;
+    }
+  }
+
+  .overlay1{
+    padding: 1.33rem 0px 0px 0px ;
+   font-family: "samsung400";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    box-shadow:0px 2px 9px rgba(0, 0, 0, 0.9); 
+     background-color: floralwhite;
+     color: black;
+     z-index: 1;
+     margin-left: 33vw;
+     width: 450px;
+    top:10%;
+    height: 430px;
+    transition: transform 0.3s;  
+    overflow: hidden;
+    border-radius: 0.5rem 0.5rem 0.5rem 0.5rem; 
+  }
+  .signUp{
+    display: flex;
+    justify-content: space-between;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  .exitSignup{
+cursor: pointer;
+float: right;
+margin-right: 2vw;
+font-size: 2vw;
+  }
+  .signupLogo{
+    margin-left: 2vw;
+    font-size: 2.3vw;
+  }
+
+  .inputContainer {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2vw;
+    margin-left: 1.8vw;
+    max-height: 170px;  
+  }
+
+  .customInput {
+    width: 95%;
+    padding: 10px;
+    margin-bottom:20px;
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+    font-size: 1.5vw;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  .custom-checkbox {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(0, 0, 0, 0.5);
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+    vertical-align: middle; 
+  }
+  
+  .checkbox-label {
+    vertical-align: middle; 
+    font-size: 14px;
+    width:80%
+  }
+  
+  .custom-checkbox:checked {
+    border: 2px solid red;
+    color: red;
+    padding-bottom: 1vw;
+  }
+  
+  .custom-checkbox:checked::before {
+    content: '\2713';
+    display: inline-block; 
+    text-align: center;
+    justify-content: center;
+    font-size: 1.5vw;
+    color: red;
+    padding-bottom: 1vw;
+    margin-top: -0.3vw;
+   }
+  
+  .checkbox-container {
+    width: 90%;
+    margin-left: 2vw;
+  }
+  .checkbox-label span {
+    color: red;
+  } 
+  .loginCreateAccount{
+    padding: 14px;
+    background-color:#EF4F5F;
+    margin-left: 2vw;
+    color: white;
+    border-radius: 0.5rem;
+    border: none;
+    width: 90%;
+    font-size: 16px;
+    margin-top: 20px;
+    outline: none;
+    cursor: pointer;
+  }
+  .loginCreateAccount.disabled{
+    padding: 14px;
+    background-color:rgba(0, 0, 0, 0.4);
+    margin-left: 2vw;
+    color: white;
+    border-radius: 0.5rem;
+    border: none;
+    width: 90%;
+    font-size: 16px;
+    margin-top: 20px;
+    outline: none;
+  }
+  .loginGoogle{
+    padding: 8px;
+    margin-left: 2vw;
+    color: black;
+    border-radius: 0.5rem;
+    border: 1px solid black;
+    width: 90%;
+    font-size: 16px;
+    margin-top: 20px;
+    outline: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+  }
+  .loginGoogletext{
+    font-size: 18px;
+    margin-left: 1vw;
+  }
+  .customInput.error {
+    border-color: red;
+    
+  }
+  
+  .error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: -10px;
+    padding-bottom: 10px;
+  }
+
+.customInput:focus {
+  border: 2px solid rgb(84, 196, 149); 
+  outline: none;
+}
+
+  .otpText{
+    width :90%;
+    font-family: Helvetica, sans-serif;
+    color: rgba(0, 0, 0, 0.6);
+    margin-left: 2vw;
+    font-size: 17px;
+    padding-top: 2.8vw;
+    line-height: 20px;
+  }
+  .inputContainerOtp{
+    display: flex;
+    flex-direction: column;
+    margin-top: 0.5vw;
+    margin-left: 1.8vw;
+  }
+
+  .overlayOtp{
+    padding: 1.33rem 0px 0px 0px ;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    box-shadow:0px 2px 9px rgba(0, 0, 0, 0.9); 
+     background-color: floralwhite;
+     color: black;
+     z-index: 1;
+     margin-left: 33vw;
+     width: 450px;
+    top:10%;
+    height: 380px;
+    transition: transform 0.3s;  
+    overflow: hidden;
+    border-radius: 0.5rem 0.5rem 0.5rem 0.5rem; 
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .overlayOtperror{
+    padding: 1.33rem 0px 0px 0px ;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    box-shadow:0px 2px 9px rgba(0, 0, 0, 0.9); 
+     background-color: floralwhite;
+     color: black;
+     z-index: 1;
+     margin-left: 33vw;
+     width: 450px;
+    top:10%;
+    height: 380px;
+    transition: transform 0.3s;  
+    overflow: hidden;
+    border-radius: 0.5rem 0.5rem 0.5rem 0.5rem; 
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  .otpProceed{
+    padding: 14px;
+    background-color:#EF4F5F;
+    margin-left: 2vw;
+    color: white;
+    border-radius: 0.5rem;
+    border: none;
+    width: 90%;
+    font-size: 16px;
+    outline: none;
+    cursor: pointer;
+  }
+  .timer{
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    margin-top: 1.7vw;
+  }
+  .resendOtp{
+    display: flex;
+    justify-content: center;
+    color: rgba(0, 0, 0, 0.8);
+    margin-top: 1vw;
+  }
+  .newOtptag{
+    display: flex;
+    justify-content: center;
+    font-size: 10px;
+  }
+  .overlayOtperror{
+    padding: 1.33rem 0px 0px 0px ;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    box-shadow:0px 2px 9px rgba(0, 0, 0, 0.9); 
+     background-color: floralwhite;
+     color: black;
+     z-index: 1;
+     margin-left: 33vw;
+     width: 440px;
+    top:30%;
+    height: 230px;
+    transition: transform 0.3s;  
+    overflow: hidden;
+    border-radius: 0.5rem 0.5rem 0.5rem 0.5rem; 
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  .responseError{
+    display: flex;
+    justify-content: start;
+    padding: 30px;
+
+    font-size: 14px ;
+    color: rgba(0, 0, 0, 0.7);
+  }
+  .responseErrorSkip{
+    display: flex;
+    justify-content: center;
+    padding: 2px 20px 20px 10px;
+    color: red;
+    cursor: pointer;
+  }
+  .loader-container {
+    display: flex;
+    align-items: center;
+    margin-left: 4vw;
+  }
+  
+  .loader-dot {
+    animation: zoomInOut 1s infinite alternate;
+    margin: 0px 9px;
+  }
+  
+  @keyframes zoomInOut {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(1.6);
+    }
+  }
+  
+  .profile{
+    display: flex;
+  }
+  .profileImage{
+    font-size: 1px;
+    width: 30px;
+    height: 30px;
+  }
+  .profileName{
+    display: inline;
+    color: black;
+    cursor: pointer;
+  }
+ 
+
+  .overlayLogout{
+    padding: 1.33rem 0px 0px 0px ;
+   font-family: "samsung400";
+    position: absolute;
+    width: 100%;
+     background-color: white;
+     color: black;
+     box-shadow: 0 0 10px rgba(0, 0, 0, 0.15); 
+     z-index: 1;
+     margin-left: 1150px;
+    margin-top: 330px;
+     width: 130px ;
+     border-radius: 0.5rem 0.5rem 0.5rem 0.5rem; 
+     animation: slideIn123 0.3s forwards;
+    transition: transform 0.3s;  
+    overflow: hidden;
+    cursor: pointer;
+  }
+  @keyframes slideIn123 {
+    from {
+      opacity: 0;
+      height:100px;
+    }
+    to {
+      opacity: 1;
+      height:  250px;
+    }
+  }
+  .overlayLogoutflex{
+    display: flex;
+    flex-direction:column;
+    justify-content: center;
+    line-height: 35px;
+    margin-left: 1vw;
+  }

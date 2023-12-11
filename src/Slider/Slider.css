@@ -1,0 +1,142 @@
+/* Add this CSS to your project */
+
+.w-75 {
+    width: 85%;
+    padding-top: 50px;
+  }
+  
+  .m-auto {
+    margin: auto;
+  }
+  
+  .mt-20 {
+    margin-top: 10vw;
+  }
+  
+  .bg-white {
+    background-color: #fff;
+    border-radius: 50%;
+  }
+  
+  .height-450 {
+    height: 11vw;
+  }
+  
+  .text-black {
+    color: #000;
+  }
+  
+  .rounded-xl {
+    border-radius: 0.75rem;
+  }
+  
+  .height-56 {
+    height: 56px;
+  }
+  
+  .bg-indigo-500 {
+    background-color: #4f46e5;
+  }
+  
+  .flex {
+    display: flex;
+  }
+  
+  .justify-center {
+    justify-content: center;
+  }
+  
+  .items-center {
+    align-items: center;
+  }
+  
+  .rounded-t-xl {
+    border-top-left-radius: 0.75rem;
+    border-top-right-radius: 0.75rem;
+  }
+  
+  .height-44 {
+    height: 150px;
+    border-radius: 50%;
+  }
+  
+  .width-44 {
+    width: 150px;
+  }
+  
+  .flex-col {
+    flex-direction: column;
+  }
+  
+  .gap-4 {
+    gap: 1rem;
+  }
+  
+  .padding-4 {
+    padding: 1rem;
+  }
+  
+  .text-xl {
+    font-size: 1.25rem;
+  }
+  
+  .font-semibold {
+    font-weight: 600;
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+  
+  .text-lg {
+    font-size: 1.125rem;
+  }
+  
+  .padding-x-6 {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+  
+  .padding-y-1 {
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+  }
+  
+  /* Add more styles as needed */
+  .slick-slide > div {
+    margin: 0 10px;
+  }
+  
+  .slick-dots li.slick-active button:before {
+    color:orange !important;
+  }  
+ .slick-arrow slick-prev{
+    background-color: yellow!important;
+    color: aqua!important;
+ }
+ .slick-prev:before{
+    font-size: larger;
+    background-color: aquamarine;
+ }.custom-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #fff; /* Customize the background color as needed */
+    border: 1px solid #ddd; /* Customize the border as needed */
+    /* padding: 10px; */
+    cursor: pointer;
+    border-radius: 50%;
+    outline: palevioletred;
+  }
+  
+  .left-center {
+    left: 0;
+    z-index: 1000;
+  }
+  
+  .right-center {
+    right: 0;
+  }
+  .slick-slider {
+    overflow: hidden; /* Ensure that the slider content doesn't overflow */
+  }
