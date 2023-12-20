@@ -32,12 +32,12 @@ const PrevArrow = (props: any) => {
   
   
 
-function Sliders() {
+function SliderHotel() {
 
   const navigate = useNavigate();
   const [filterParams, setFilterParams] = useState<string[]>([]);
 
-  const handleNavigateHotelName = (name: string,city:string) => {
+  const handleNavigateHotelName = (name: string,city:any) => {
     let updatedFilterParams = [...filterParams];
     if(city)
     updatedFilterParams.push(`${city}`);
@@ -59,13 +59,15 @@ function Sliders() {
     nextArrow: <NextArrow />,
   };
 
+
   return (
     <div className="w-75 m-auto">
       <div className="margin-top-20">
         <Slider {...settings}>
           {data.map((d) => (
-            <div key={d.name} className="bg-white height-450 text-black rounded-xl">
-                <img src={d.img} alt="" className="height-44 width-44 rounded-full" />
+            <div onClick={()=>handleNavigateHotelName(d.name,d.Sub_Location)} key={d.name} className="bg-white height-450 text-black rounded-xl">
+                <img style={{cursor:"pointer"}}src={d.img} alt="" className="height-44 width-44 rounded-full" />
+                <div className='kkk'>{d.name}</div>
             </div>
           ))}
         </Slider>
@@ -76,70 +78,52 @@ function Sliders() {
 
 const data = [
   {
-    name: `John Morgan`,
-    img: `https://b.zmtcdn.com/data/dish_images/d9766dd91cd75416f4f65cf286ca84331634805483.png`,
+    name: "Sri_Annapoorna",
+    Sub_Location:"Kuniyamuthur",
+    img: `https://b.zmtcdn.com/data/brand_creatives/logos/381f5d7481d4cf08b35a063b8787070b_1617918168.png?output-format=webp`,
     review: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.`,
   },
   {
-    name: `Ellie Anderson`,
-    img: `https://b.zmtcdn.com/data/o2_assets/8dc39742916ddc369ebeb91928391b931632716660.png`,
+    name: `SS_Hyderabad`,
+    Sub_Location:"Gandhipuram",
+    img: `https://b.zmtcdn.com/data/brand_creatives/logos/6a11fd0f30c9fd9ceaff2f5b21f61d23_1617187820.png?output-format=webp`,
     review: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.`,
   },
   {
-    name: `Nia Adebayo`,
-    img: `https://b.zmtcdn.com/data/o2_assets/fee832f6c837b40004750fb3185da6791632716576.png`,
+ 
+    name: `Pizza_Hut`,
+    Sub_Location:"Peelamedu",
+    img: `https://b.zmtcdn.com/data/brand_creatives/logos/c38f7540bcc5a38e918856ac06409056_1504531339.png?output-format=webp`,
+    review: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.`,
+  },
+ 
+  {
+    name: `Abhita_Restaurant`,
+    Sub_Location:"Ukkadam",
+    img: `https://b.zmtcdn.com/data/brand_creatives/logos/3d80cb89fca9e212f7dab2c1914ebd8f_1643983649.png?output-format=webp`,
+    review: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.`,
+  },
+
+  {
+    name: `Domino's_Pizza`,
+    Sub_Location:"Saibaba Colony",
+    img: `https://b.zmtcdn.com/data/brand_creatives/logos/45137b90df2f1154a8766b00c03c8fc3_1655800804.png?output-format=webp`,
+    review: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.`,
+  },
+
+  {
+    name: `Arya_Bhavan`,
+    Sub_Location:"RS Puram",
+    img: `https://b.zmtcdn.com/data/brand_creatives/logos/50760f50e2c9d1220c3c98e5a32eba28_1661166543.png?output-format=webp`,
     review: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.`,
   },
   {
-    name: `Rigo Louie`,
-    img: `https://b.zmtcdn.com/data/o2_assets/bf4bde7b78d517ac8460ea03d4c64a7f1632716550.png`,
+    name: `Dindigul_Thalapakkatti`,
+    "Sub_Location":"Gandhipuram",
+    img: `https://b.zmtcdn.com/data/brand_creatives/logos/0956194de2534812e820317cd4b0ccd3_1630505737.png?output-format=webp`,
     review: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.`,
   },
-  {
-    name: `Mia Williams`,
-    img: `https://b.zmtcdn.com/data/dish_images/d19a31d42d5913ff129cafd7cec772f81639737697.png`,
-    review: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.`,
-  },
-  // {
-  //   name: `John Morgan`,
-  //   img: `https://b.zmtcdn.com/data/dish_images/d19a31d42d5913ff129cafd7cec772f81639737697.png`,
-  //   review: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.`,
-  // },
-  {
-    name: `Ellie Anderson`,
-    img: `https://b.zmtcdn.com/data/dish_photos/bf0/f0891fc34faed365907425767d4a0bf0.jpg`,
-    review: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.`,
-  },
-  {
-    name: `Nia Adebayo`,
-    img: `https://b.zmtcdn.com/data/dish_images/d5ab931c8c239271de45e1c159af94311634805744.png`,
-    review: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.`,
-  },
-  {
-    name: `Rigo Louie`,
-    img: `https://b.zmtcdn.com/data/dish_photos/4e8/dc0c86b5eda48072b616f920955f84e8.jpg`,
-    review: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.`,
-  },
-  {
-    name: `Mia Williams`,
-    img: `https://b.zmtcdn.com/data/o2_assets/d0bd7c9405ac87f6aa65e31fe55800941632716575.png`,
-    review: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.`,
-  },
-  {
-    name: `Mia Williams`,
-    img: `https://b.zmtcdn.com/data/dish_images/197987b7ebcd1ee08f8c25ea4e77e20f1634731334.png`,
-    review: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.`,
-  },
-  {
-    name: `Mia Williams`,
-    img: `https://b.zmtcdn.com/data/dish_images/ccb7dc2ba2b054419f805da7f05704471634886169.png`,
-    review: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.`,
-  },
-  {
-    name: `Mia Williams`,
-    img: `https://b.zmtcdn.com/data/o2_assets/fc641efbb73b10484257f295ef0b9b981634401116.png`,
-    review: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.`,
-  },
+
 ];
 
-export default Sliders;
+export default SliderHotel;

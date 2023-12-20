@@ -1,0 +1,153 @@
+.restImageWrap {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.restImageWrap {
+    padding-top: 30px;
+}
+
+.nameRatingWrap {
+    display: flex;
+    width: 100%;
+    /* justify-content: space-between; */
+    /* justify-content: space-around; */
+    align-items: center;
+}
+
+.s.sticky {
+    padding: 20px;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background-color: white;
+    z-index: 1;
+}
+
+.m.sticky {
+    position: sticky;
+    top: 1000px;
+    background-color: white;
+}
+
+.wholeRoute button.active {
+    color: red;
+}
+
+
+.wholeRoute.sticky {
+    position: sticky;
+    top: 11rem;
+    /* Adjust this value based on the height of the first sticky element */
+    background-color: white;
+    z-index: 1;
+}
+
+.restImage {
+    width: 45vw;
+
+}
+
+.restImage1 {
+    width: 16vw;
+    margin: 0px 5px 0px 5px;
+    height: 14.7vw;
+}
+
+.restImageA1 {
+    width: 16vw;
+    margin: 0px 5px 0px 5px;
+    height: 15vw;
+}
+
+.restImage2 {
+    width: 14vw;
+    height: 30vw;
+}
+
+.restName {
+    font-size: 3vw;
+    /* padding-right: 11vw; */
+    /* position: ; */
+    margin-left: 11.7vw;
+}
+
+.ratingWrapz{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 30vw;
+}
+
+.ratingColor1 {
+    background-color: rgb(36, 150, 63);
+    display: flex;
+    border-radius: 0.5rem;
+    padding: 1.5px 5px 0px 5px;
+    font-size: 13.5px;
+    font-weight: bold;
+    color: white;
+}
+
+.ratingColor {
+    /* background-color: rgb(36, 150, 63); */
+    display: flex;
+}
+
+.searchSvg {
+    padding: 1px 0px 0px 3px;
+    margin-top: 1px;
+}
+
+.cuisine {
+    display: flex;
+    margin-left: 12vw;
+    padding-top: 1.5vw;
+}
+
+.location {
+    color: rgb(.0, .0, .0, .5);
+    margin-left: 12vw;
+    padding-top: 0.5vw;
+
+}
+
+.whole {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin-left: 11.5vw;
+    padding: 2vw;
+}
+
+
+.whole button {
+    display: flex;
+    align-items: center;
+    font-family: 'Arial', sans-serif;
+    font-size: 14px;
+    color: #484848;
+    background-color: transparent;
+    border: 1px solid rgb(.0, .0, .0, .5);
+    padding: 0.6vw 1.2vw 0.6vw 1.2vw;
+    outline: none;
+    border-radius: 10px;
+}
+
+.resShare {
+    padding: 0.8vw 1.2vw 0.7vw 1.2vw !important;
+}
+
+.wholeRoute button {
+    border: none;
+    background-color: transparent;
+    font-size: 19px;
+    color: rgb(.0, .0, .0, .8);
+    padding: 1vw 3.5vw 1vw 0.5vw
+}
+
+.wholeRoute {
+    margin-left: 13vw;
+}

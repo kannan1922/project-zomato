@@ -1,0 +1,379 @@
+@font-face {
+    font-family: Okra;
+    font-display: swap;
+    src: url(https://b.zmtcdn.com/web_assets/bac203052382824f8c8fcd7668417f771597997180.woff2) format('woff2'), url(https://b.zmtcdn.com/web_assets/9dd3d8fd6150ab3f8106f4a073d054521597921546.ttf) format('truetype');
+    font-style: normal;
+    font-weight: 100;
+}
+
+@font-face {
+    font-family: Okra;
+    font-display: swap;
+    src: url(https://b.zmtcdn.com/web_assets/0256637bc22e4c9e069ad868c196d29f1597997099.woff2) format('woff2'), url(https://b.zmtcdn.com/web_assets/0a2cb1a22221afd4a5c4f59bde89afda1597921603.ttf) format('truetype');
+    font-style: normal;
+    font-weight: 200;
+}
+
+@font-face {
+    font-family: Okra;
+    font-display: swap;
+    src: url(https://b.zmtcdn.com/web_assets/081152f7adf53200c7f8789005ca54ca1597997115.woff2) format('woff2'), url(https://b.zmtcdn.com/web_assets/6651f01000a2e122e587bb2282cb3ea21597921594.ttf) format('truetype');
+    font-style: normal;
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: Okra;
+    font-display: swap;
+    src: url(https://b.zmtcdn.com/web_assets/c750382e5207a1a41cdcb496ef2326d51597997149.woff2) format('woff2'), url(https://b.zmtcdn.com/web_assets/aead83936ff20e860667e0a18f26d7571597921574.ttf) format('truetype');
+    font-style: normal;
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: Okra;
+    font-display: swap;
+    src: url(https://b.zmtcdn.com/web_assets/b27921d5a95f787012c8e9dfbb86c2751597997132.woff2) format('woff2'), url(https://b.zmtcdn.com/web_assets/1674f573eef1f8ba15be69b44aab4d401597921585.ttf) format('truetype');
+    font-style: normal;
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: Okra;
+    font-display: swap;
+    src: url(https://b.zmtcdn.com/web_assets/8e7505f4e7be967217d81781b49425bc1597997165.woff2) format('woff2'), url(https://b.zmtcdn.com/web_assets/df06bf5a1ce831e889b3b07f3bab84d61597921557.ttf) format('truetype');
+    font-style: normal;
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: Okra;
+    font-display: swap;
+    src: url(https://b.zmtcdn.com/web_assets/1792d65b5545ef5781d92cf519ad47c21597997060.woff2) format('woff2'), url(https://b.zmtcdn.com/web_assets/def01ba19fdf2476f0fc1904e4195e011597921623.ttf) format('truetype');
+    font-style: normal;
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: Okra;
+    font-display: swap;
+    src: url(https://b.zmtcdn.com/web_assets/c596984d29a9ca0a7995ac6f4d9ac6461597997080.woff2) format('woff2'), url(https://b.zmtcdn.com/web_assets/e791ade4b99ef84be3ac11a07f2a774c1597921614.ttf) format('truetype');
+    font-style: normal;
+    font-weight: 800;
+}
+
+
+/* .cover div { 
+      font-size: 1.6rem;
+  }  */
+
+
+
+body {
+    font-family: Okra, Helvetica, sans-serif;
+}
+
+.cover {
+    margin: 0;
+    padding: 0;
+    font-size: 16px !important;
+    font-weight: 300;
+    box-sizing: border-box;
+}
+
+.html {
+    margin: 0;
+    padding: 0;
+
+    /* font-weight: 300;  */
+    box-sizing: border-box;
+}
+
+.jCqlJi {
+    position: relative;
+    max-width: 110rem;
+    max-height: initial;
+    margin: 0px auto;
+}
+
+
+
+.jCqlJi .heading {
+    display: flex;
+    margin-top: 4rem;
+    -webkit-box-pack: center;
+    justify-content: center;
+}
+
+.jCqlJi .country-description {
+    margin-top: 4rem;
+    text-align: center;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+}
+
+.jCqlJi .states-container {
+    margin-top: 7.5rem;
+}
+
+.cHkolX {
+    /* font-size: 3.6rem;  */
+    /* line-height: 1.2;  */
+    font-weight: 400;
+    color: rgb(28, 28, 28);
+    margin: 7px;
+}
+
+.jCqlJi .heading .flag-title {
+    margin-left: 0.5rem;
+    display: flex;
+    -webkit-box-align: center;
+    /* align-items: center; */
+}
+
+/* .cover p { 
+      font-size: 1.6rem;
+  }  */
+
+.jCqlJi .country-description p {
+    margin: 0px;
+    max-width: 66rem;
+    font-size: 1.5rem;
+    line-height: 150%;
+    color: rgb(105, 105, 105);
+}
+
+.eKgLuZ {
+    position: relative;
+    /* max-width: 100%; */
+    width: 5rem;
+    margin-left: 10px;
+    height: 3.5rem;
+    overflow: hidden;
+}
+
+.jCqlJi .heading .flag-title .country {
+    font-weight: 500;
+}
+
+.cVOEqG {
+    /* width: 100%; */
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    background: linear-gradient(to right, rgb(248, 248, 248) 0%, rgb(255, 255, 255) 10%, rgb(248, 248, 248) 40%, rgb(248, 248, 248) 100%) no-repeat rgb(248, 248, 248);
+    opacity: 0;
+    transition: opacity 0.25s ease-out 0s;
+    will-change: opacity;
+    border-radius: inherit;
+    animation: 1.5s linear 0s infinite normal forwards running jCOzbu;
+}
+
+.jQwYOW {
+    width: 4vw!important;
+    /* height: 40%; */
+    object-fit: contain;
+    transform: none;
+    opacity: 1;
+    will-change: transform, opacity;
+    border-radius: inherit;
+    filter: unset;
+    transition: opacity 0.25s ease 0s, transform 0.25s ease 0s;
+    margin-bottom: 1px;
+}
+
+.fIuLDK {
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.bcVYKA {
+    position: relative;
+    width: 100%;
+    -webkit-box-flex: 0;
+    flex-grow: 0;
+    flex-shrink: 0;
+    max-width: 27.3333%;
+    padding: 0px 13.3333px 20px 0px;
+}
+
+.MwaDg {
+    position: relative;
+    width: 100%;
+    -webkit-box-flex: 0;
+    flex-grow: 0;
+    flex-shrink: 0;
+    max-width: 28.3333%;
+    padding: 0px 6.66667px 20px 6.66667px;
+}
+
+.fTtEw {
+    position: relative;
+    width: 100%;
+    -webkit-box-flex: 0;
+    flex-grow: 0;
+    margin-left: 1vw;
+    flex-shrink: 0;
+    max-width: 27.3333%;
+    padding: 0px 0px 20px 13.3333px;
+}
+
+.jCqlJi a {
+    text-decoration: none;
+}
+
+.eKRluy {
+    padding: 1rem 1rem;
+    border-radius: 0.8rem;
+    background: rgb(255, 255, 255);
+    border: 1px solid rgb(232, 232, 232);
+    margin-bottom: 1.5rem;
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.jCqlJi .panel {
+    box-shadow: rgba(28, 28, 28, 0.08) 0px 1.42623px 2.85246px;
+}
+
+.jCqlJi .panel:hover {
+    box-shadow: rgba(28, 28, 28, 0.08) 0px 4px 8px;
+}
+
+.cvjQRZ {
+    display: flex;
+    flex-direction: row;
+    -webkit-box-align: center;
+    align-items: center;
+}
+
+.iFnyeo {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    cursor: inherit;
+}
+
+.ceMAjr {
+    margin-left: 2rem;
+    flex-shrink: 0;
+}
+
+.hhbQDo {
+    font-size: 1.3rem;
+    line-height: 1.2;
+    font-weight: 400;
+    color: rgb(28, 28, 28);
+    margin: 0px;
+}
+
+.bBZBLJ {
+    font-size: inherit;
+    line-height: 1.5;
+    margin: 0px;
+    color: rgb(54, 54, 54);
+}
+
+.jKmKoK {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 1;
+    width: 15px;
+    height: 15px;
+}
+
+
+@keyframes jCOzbu {
+    0% {
+        background-position: -80vw 0px;
+        background-position-x: -80vw;
+        background-position-y: 0px;
+    }
+
+    100% {
+        background-position: 80vw 0px;
+        background-position-x: 80vw;
+        background-position-y: 0px;
+    }
+
+}
+
+.homeText {
+    position: absolute;
+}
+
+.homeImage {
+    position: relative;
+}
+
+.imageContainer {
+    position: relative;
+}
+
+.homeText {
+    position: absolute;
+    top: 1.8%;
+    left:58.4%;
+    /* transform: translate(-50%, -50%); */
+    text-align: center;
+    color: white;
+    /* Adjust text color as needed */
+    z-index: 1;
+    /* Ensure the text is above the image */
+}
+
+
+
+.homeText1 {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+    /* Adjust text color as needed */
+    z-index: 1;
+    /* Ensure the text is above the image */
+}
+.hmetext{
+    position: absolute;
+    top: 150%;
+    /* left: 0%; */
+    width: 100%;
+    /* transform: translate(-50%, -50%); */
+    text-align: center;
+    color: white;
+    /* Adjust text color as needed */
+    z-index: 1;
+    /* Ensure the text is above the image */
+}
+.imageContainer img {
+    width: 100%;
+    /* Ensure the image takes up the entire container */
+    max-height: 42vw!important;
+}
+.homeflex{
+    display: flex;
+}
+.dis{
+    font-size: 18px;
+    padding: 1.2vw;
+}
+.homezomato {
+    width: 50%; /* Adjust the width as needed */
+    height: auto; /* Maintain the aspect ratio */
+    max-width: 40%; /* Ensure the image doesn't exceed its original size */
+  }
+  .homeText2{
+    font-size: 38px;
+    /* margin-top: 10px; */
+  }

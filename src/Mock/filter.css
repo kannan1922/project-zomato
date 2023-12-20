@@ -1,0 +1,43 @@
+.filterNavbar{
+    display: flex;
+    /* width: 80%; */
+    margin-top: 2vw;
+    padding: 20px;
+}
+.move{
+    margin-left:9vw;
+}
+.filterNavbar.sticky {
+    padding: 20px;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); Optional: Add a subtle box shadow when sticky */
+    background-color: white; /* Set the background color for the sticky state */
+  }
+  
+.filterButton{
+    padding: 10px;
+    margin-right: 10px;
+    border-radius: 6px;
+    border: 1px solid rgba( .0, .0, .0, .4);
+    color: rgba( .0, .0, .0, .4);
+    background-color: transparent;
+    outline: none;
+    cursor: pointer;
+}
+.filterButton.active{
+    padding: 10px;
+    margin-right: 10px;
+    border-radius: 6px;
+    /* border: 0.5px solid rgba( .0, .0, .0, .4); */
+    border: none;
+    color: white;
+    background-color: red;
+    outline: none;
+    cursor: pointer;
+}
+.filterButtoninside{
+    display: flex;
+    flex-direction: row;
+}

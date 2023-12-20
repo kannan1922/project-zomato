@@ -13,7 +13,7 @@
     display: flex;
     justify-content:flex-end;
     align-items: center;
-    margin-right: 1.5vw;
+    margin-right: 1.9vw;
   }
   
   
@@ -25,14 +25,15 @@
   }
   
   .search-wrap {
-    margin-top: 1vw;
+    margin-top: 0.5vw;
     border-radius: 0.7vw;
     flex: 2.5;
     display: flex;
     align-items: center;
-    padding: 0.7vw;
+    padding: 0.4vw;
+    border: 1px solid rgba(0, 0, 0, 0.1);
     font-size: 14px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15); /* Add a box shadow */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05); /* Add a box shadow */
   }
   
   
@@ -69,19 +70,26 @@
   }
   
   .auth-section {
-    flex: 1.5;
+    flex: 1.5; 
     display: flex;
-    justify-content: space-evenly;
+    /* justify-content: center; */
     font-size: 19px;
     margin-top: 1vw;
   }
   
   .auth-section span {
-    margin-left: 20px;
+    margin-left: 10px;
     cursor: pointer;
     color:rgba(0, 0, 0, 0.5);
     font-size: 1.4vw;
+    margin-top: 5px;
     
+  }
+  .Alogin{
+    margin-left: 8vw;
+  }
+  .Asignin{
+    margin-left: 3vw;
   }
 /*   
   @media screen and (max-width: 768px) {
@@ -109,21 +117,7 @@
   }
    */
 
-   .overlay{
-    /* padding: 1.33rem 0px 0px 0px ; */
-    position: absolute;
-    /* width: 100%; */
-     background-color: aqua;
-     color: black;
-     z-index: 1;
-     margin-left: 190px;
-    margin-top: 120px;
-     width: 100px ;
-     border-radius: 0px 0px 1rem 1rem; 
-     animation: slideIn12 0.3s forwards;
-    transition: transform 0.3s;  
-    overflow: hidden;
-  }
+
   @keyframes slideIn12 {
     from {
       opacity: 0;
@@ -144,7 +138,7 @@
     box-shadow:0px 2px 9px rgba(0, 0, 0, 0.9); 
      background-color: floralwhite;
      color: black;
-     z-index: 1;
+     z-index: 10000;
      margin-left: 33vw;
      width: 450px;
     top:10%;
@@ -241,7 +235,7 @@ font-size: 2vw;
     border: none;
     width: 90%;
     font-size: 16px;
-    margin-top: 20px;
+    margin-top: 10px;
     outline: none;
     cursor: pointer;
   }
@@ -254,7 +248,7 @@ font-size: 2vw;
     border: none;
     width: 90%;
     font-size: 16px;
-    margin-top: 20px;
+    margin-top: 10px;
     outline: none;
   }
   .loginGoogle{
@@ -262,7 +256,7 @@ font-size: 2vw;
     margin-left: 2vw;
     color: black;
     border-radius: 0.5rem;
-    border: 1px solid black;
+    border: 1px solid rgba(0, 0, 0, 0.5);
     width: 90%;
     font-size: 16px;
     margin-top: 20px;
@@ -274,6 +268,7 @@ font-size: 2vw;
   .loginGoogletext{
     font-size: 18px;
     margin-left: 1vw;
+    color:rgba(0, 0, 0, 0.6)
   }
   .customInput.error {
     border-color: red;
@@ -309,6 +304,7 @@ font-size: 2vw;
   }
 
   .overlayOtp{
+    z-index: 1000;
     padding: 1.33rem 0px 0px 0px ;
     position: absolute;
     width: 100%;
@@ -328,6 +324,7 @@ font-size: 2vw;
   }
 
   .overlayOtperror{
+    z-index: 1000;
     padding: 1.33rem 0px 0px 0px ;
     position: absolute;
     width: 100%;
@@ -410,12 +407,12 @@ font-size: 2vw;
   .loader-container {
     display: flex;
     align-items: center;
-    margin-left: 4vw;
+    margin-left: 8vw;
   }
   
   .loader-dot {
     animation: zoomInOut 1s infinite alternate;
-    margin: 0px 9px;
+    margin: 0px 20px;
   }
   
   @keyframes zoomInOut {
@@ -429,19 +426,30 @@ font-size: 2vw;
   
   .profile{
     display: flex;
+    margin-left: 8vw;
   }
   .profileImage{
     font-size: 1px;
     width: 30px;
     height: 30px;
+    border-radius: 30px;
+    margin-top: 2px;
+    /* margin-right: 10px; */
   }
   .profileName{
     display: inline;
     color: black;
     cursor: pointer;
+    margin-top: 2px;
   }
  
-
+  .profileName1{
+    display: inline;
+    color: black;
+    cursor: pointer;
+    margin-top: 8px;
+    /* margin-left: 1vw; */
+  }
   .overlayLogout{
     padding: 1.33rem 0px 0px 0px ;
    font-family: "samsung400";
@@ -451,9 +459,9 @@ font-size: 2vw;
      color: black;
      box-shadow: 0 0 10px rgba(0, 0, 0, 0.15); 
      z-index: 1;
-     margin-left: 1150px;
-    margin-top: 330px;
-     width: 130px ;
+     margin-left: 1070px;
+    margin-top: 300px;
+     width: 160px ;
      border-radius: 0.5rem 0.5rem 0.5rem 0.5rem; 
      animation: slideIn123 0.3s forwards;
     transition: transform 0.3s;  
@@ -476,4 +484,8 @@ font-size: 2vw;
     justify-content: center;
     line-height: 35px;
     margin-left: 1vw;
+  }
+  .emailImage{
+    width: 12vw;
+    margin-left: 10vw;
   }

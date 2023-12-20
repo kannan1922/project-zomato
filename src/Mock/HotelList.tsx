@@ -6,7 +6,9 @@ import { Hotel } from './Mock'; // Assuming 'Moack' is correct
 const HotelList = () => {
   return (
     <div>
-      <HotelListDisplay products={PRODUCTS} /> 
+      {/* <HotelListDisplay 
+      products={PRODUCTS} 
+      />  */}
     </div>
   );
 };

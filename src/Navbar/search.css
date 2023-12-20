@@ -1,105 +1,116 @@
 .resultsList {
-    width: 100%;
-    /* background-color: white; */
-    display: flex;
-    flex-direction: column;
-    /* box-shadow: 0px 0px 8px #ddd; */
-    border-radius: 10px;
-    /* margin-top: 1rem;   */
-    max-height: 300px;
-    font-size: 1rem;
-    overflow-y: auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  max-height: 300px;
+  font-size: 1rem;
+  overflow-y: auto;
+}
+
+.inputWrapper {
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.overlay {
+  padding: 1.33rem 0px 0px 0px;
+  font-family: "samsung400";
+  position: absolute;
+  width: 100%;
+  background-color: floralwhite;
+  color: black;
+  z-index: 201;
+  margin-left: 530px;
+  margin-top: 500px;
+  width: 440px;
+  border-radius: 0.5rem 0.5rem 0.5rem 0.5rem;
+  animation: slideIn12 0.3s forwards;
+  transition: transform 0.3s;
+  box-shadow: 0px 0px 10px rgba(.0, .0, .0, .3);
+  overflow: hidden;
+   max-height: 700px;
+    /* height: auto;  */
+}
+
+
+@keyframes upAnime {
+  from {
+    opacity: 0;
+    height: 0;
   }
-  .inputWrapper {
-    width: 100%;
-    /* height: 2.5rem;   */
-    border: none;
-    border-radius: 10px;
-    /* padding: 0 15px; */
-    /* box-shadow: 0px 0px 8px #ddd; */
-    /* background-color: white; */
-    display: flex;
-    align-items: center;
+
+  to {
+    opacity: 1;
+    height: 300px;
   }
-  .overlay{
-    padding: 1.33rem 0px 0px 0px ;
-   font-family: "samsung400";
-    position: absolute;
-    width: 100%;
-    background-color: floralwhite;
-     color: black;
-     z-index: 201;
-     margin-left: 530px;
-    margin-top: 504px;
-     width: 440px;
-     border-radius: 0.5rem 0.5rem 0.5rem 0.5rem; 
-     animation: slideIn12 0.3s forwards;
-    transition: transform 0.3s;  
-       box-shadow: 0px 0px 28px #ddd;
-    overflow: hidden;
-  }
-  /* @keyframes slideIn12 {
-    from {
-      opacity: 0;
-      height:0px;
-    }
-    to {
-      opacity: 1;
-      height: 100px;
-    }
-  } */
-  .searchFlex{
-    display: flex;
-    padding: 10px;
-  }
-  .searchDetails{
-    padding-left: 10px;
-  }
-  .searchImage{
-    border-radius: 0.5rem 0.5rem 0.5rem 0.5rem; 
-    width: 80px;
-    /* padding-left: 20px; */
-  }
-  .searchImageWrap{
-    padding-left: 10px;
-  }
-  .ratingWrap{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .ratingColor1{
-    background-color: rgb(36, 150, 63);
-    display: flex;
-    border-radius: 0.5rem;
-    padding: 1.5px 5px 0px 5px;
-    font-size: 13.5px;
-    font-weight: bold;
-    color: white;
-  }
-  .ratingColor{
-    /* background-color: rgb(36, 150, 63); */
-    display: flex;
-  }
-  .searchSvg{
-    padding: 1px 0px 0px 3px;
-    margin-top: 1px;
-  }
-  .searchResultName{
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 18px;
-    color: rgba(.0 , .0 ,.0 ,.7);
-  }
-  .SearchDeliveryText{
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 12px;
-    font-weight: bold;
-    margin-top: 3px;
-    margin-left: 3px;
-    color: rgba(.0 , .0 ,.0 ,.5);
-  }
-  .searchLocation{
-    font-family: Arial, Helvetica, sans-serif;
-    color: rgba(.0 , .0 ,.0 ,.6);
-    padding: 2px 0px;
-  }
+}
+
+.searchFlex {
+  display: flex;
+  padding: 10px;
+}
+
+.searchDetails {
+  padding-left: 10px;
+}
+
+.searchImage {
+  border-radius: 0.5rem 0.5rem 0.5rem 0.5rem;
+  width: 80px;
+  /* padding-left: 20px; */
+}
+
+.searchImageWrap {
+  padding-left: 10px;
+}
+
+.ratingWrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ratingColor1 {
+  background-color: rgb(36, 150, 63);
+  display: flex;
+  border-radius: 0.5rem;
+  padding: 1.5px 5px 0px 5px;
+  font-size: 13.5px;
+  font-weight: bold;
+  color: white;
+}
+
+.ratingColor {
+  /* background-color: rgb(36, 150, 63); */
+  display: flex;
+}
+
+.searchSvg {
+  padding: 1px 0px 0px 3px;
+  margin-top: 1px;
+}
+
+.searchResultName {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  color: rgba(.0, .0, .0, .7);
+}
+
+.SearchDeliveryText {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  margin-top: 3px;
+  margin-left: 3px;
+  color: rgba(.0, .0, .0, .5);
+}
+
+.searchLocation {
+  font-family: Arial, Helvetica, sans-serif;
+  color: rgba(.0, .0, .0, .6);
+  padding: 2px 0px;
+}

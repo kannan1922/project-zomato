@@ -1,32 +1,40 @@
 import React from 'react';
 
-interface Hotel {
-    id: number;
-    productName: string;
-    Time: string;
-    Rating:number;
-    productImage: string;
-    price:number;
-  }
-
+export interface Restaurant {
+  id: number;
+  Name: string;
+  Opening: string;
+  Delievery_Rating: number;
+  Dining_Rating: number;
+  Images: string;
+  Location: string;
+  Sub_Location: string;
+  Cuisine: string[];
+  Working_days: string;
+  Review: any[]; 
+  Dishes: string[]; 
+}
 
 interface HotelListDisplayProps {
-  products: Hotel[]; 
+  products: Restaurant[] | undefined; 
 }
 
 const HotelListDisplay: React.FC<HotelListDisplayProps> = ({ products }) => {
   return (
     <div>
-      {products.map((product) => (
-        <div key={product.id}>
-          <h3>{product.productName}</h3>
-          <p>Price: {product.price}</p>
-          <img src={product.productImage}/>
-        </div>
-      ))}   987987y9899886iujk
+      {products ? (
+        products.map((product) => (
+          <div key={product.id}>
+            <h3>{product.Name}</h3>
+            <p>Price: {product.Location}</p>
+            <img src={product.Images}/>
+          </div>
+        ))
+      ) : (
+        <p>Loading...</p>
+      )}
     </div>
   );
 };
 
 export default HotelListDisplay;
-

@@ -1,8 +1,17 @@
-import React, { useState, ChangeEvent, useEffect, useRef } from 'react';
+import React, { useState, ChangeEvent, useEffect, useRef,useContext } from 'react';
 import './navbar.css';
 import Search from './Search';
+// import Cookies from 'js-cookie';
+import Cookies from 'js-cookie';
 import axios from 'axios';
 import { promises } from 'dns';
+import { createContext, ReactNode, Dispatch, SetStateAction } from 'react';
+import Login from './Login';
+import Profile from '../Hotels/Profile';
+import { useUserContext } from '../Context';
+import { useNavigate } from 'react-router-dom';
+// import "bootstrap/dist/css/bootstrap.min.css";
+import Modal from "react-bootstrap/Modal";
 interface Hotel {
   _id: string;
   Name: string;
@@ -10,27 +19,37 @@ interface Hotel {
   Cuisine: string[];
   Rating: number;
   Dishes: string[],
+  // closeOverlay: () => void;
 }
 
 interface Results {
-  hotels: Hotel[];
+  search: Hotel[];
+  // closeOverlay: () => void;
 }
 
+interface SearchProps {
+  results: Results;
+  closeOverlay: () => void;
+}
 function Navbar() {
+  const { userName1, updateUserName } = useUserContext();
+  const [newUsername, setNewUsername] = useState<string>('');
+  const[showEmailOtp,setShowEmailOtp]=useState(false)
   const [isInitialRender, setIsInitialRender] = useState(true);
   const [profile, setShowProfile] = useState(false);
   const [numberExist, setnumberExist] = useState(false);
   const [auth,setshowauth] = useState(true);
-  const [showOverlayLogout,setShowOverlayLogout] = useState(false);
+  const [showOverlayLogout,setShowOverlayLogout] = useState(false); 
   const [responseData, setResponseData] = useState(null);
   const[exist,setExist]=useState(false)
   const [showOverlay, setShowOverlay] = useState(false);
   const [showSignUp, setshowSignUp] = useState(false);
+  const [otpLogin, setotpLogin] = useState(false);
   const [showOtp, setshowOtp] = useState(false);
   const [showLogin, setshowLogin] = useState(false);
   const [showOtpError, setshowOtpError] = useState(false);
   const [showOtpMobile, setshowOtpMobile ]= useState(false);
-  const [results, setResults] = useState<Results>({ hotels: [] });
+  const [results, setResults] = useState<Results>({ search: [] });
   const [inputs, setInputs] = useState<string>('');
   const [otp, setOtp] = useState<string>('');
   const [mobileOtp, setMobileOtp] = useState<string>('');
@@ -46,6 +65,15 @@ const [emailError, setEmailError] = useState('');
 const [userName,setUserName]=useState<string>('');
 const [email,setEmail]=useState<string>('');
 const [userNameSign,setUserNamesign]=useState<string>('');
+const[Otpverify,setOtpVerify]=useState(false)
+const[otpVerifyMessage,setVerifyMessage]=useState<string>('');
+const[showEmail,setShowEmail]=useState(false);
+const[image,setImage]=useState<string>('')
+const [show, setShow] = useState(false);
+
+const handleClose = () => setShow(false);
+const handleShow = () => setShow(true);
+// const UserContext = createContext('');
 useEffect(() => {
   let interval:any;
   if (loading) {
@@ -98,7 +126,7 @@ useEffect(() => {
   const handleSignup = () => {
     // setshowLogin(false)
   setshowSignUp(true)
-
+  handleShow()
   };
 
   const handleLogin = () => {
@@ -111,7 +139,8 @@ useEffect(() => {
 
   const handleExit=()=>{
     console.log('Exiting login form1');
-    setPhoneNumber('')
+    // setPhoneNumber('')
+    setShow(false)
       setshowSignUp(false);
       setUserName('');
       setEmail('');
@@ -154,16 +183,24 @@ useEffect(() => {
     localStorage.removeItem('token');
     localStorage.removeItem('userName');
     localStorage.removeItem('email');
+    Cookies.remove('token1');
   handleExit();
   setShowProfile(false);
   setshowauth(true);
-  setShowOverlayLogout(false)
+  setShowOverlayLogout(false);
+  setImage("");
+  updateUserName('');
   }
+
 
   const handleLogoutShow=()=>{
   setShowOverlayLogout(!showOverlayLogout)
   }
 
+
+  const toggleOverlay = () => {
+    setShowOverlay(!showOverlay);
+  };
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -174,11 +211,15 @@ useEffect(() => {
           Token: storedToken,
         };
   
-        const response = await axios.post('https://zomato-nuit.onrender.com/onload', postToken);
+        const response = await axios.post('http://localhost:4000/onload', postToken);
         console.log('API Response:', response.data.user.Name);
         
         if(response.data.user.Name){
         setUserNamesign(response.data.user.Name)
+        if (userNameSign.trim() !== '') {
+          updateUserName(userNameSign);
+          setNewUsername(''); // Optional: Clear the input or state after updating
+        }
         setShowProfile(true);
         setUserNamesign(response.data.user.Name);
         setshowauth(false);
@@ -187,6 +228,7 @@ useEffect(() => {
         else
         {
           setShowProfile(false);
+          updateUserName('')
           setshowauth(true);
       setshowOtp(false);
         }
@@ -208,25 +250,136 @@ useEffect(() => {
       setshowOtp(false);
       setShowProfile(true);
       setUserNamesign(storedUserName);
+      if (userNameSign.trim() !== '') {
+        updateUserName(userNameSign);
+        setNewUsername(''); // Optional: Clear the input or state after updating
+      }
     }
   }, []);
   
 
+
   useEffect(() => {
-    const fetchData1 = async () => {
-    try {
-      const response = await fetch('https://zomato-nuit.onrender.com/signup/response/temp');
-      const data = await response.json();
-      console.log('Response:', data);
-    } catch (error) {
-      console.log('Error111:', error);
+    const fetchData = async () => {
+      try {
+        const storedToken1 = localStorage.getItem('token');
+        console.log('Stored Token:', storedToken1);
+  
+        const postToken = {
+          Token: storedToken1,
+        };
+  
+        const response = await axios.post('http://localhost:4000/onload', postToken);
+        console.log('API Response:', response.data.user.Name);
+        
+        if(response.data.user.Name){
+          setPhoneNumber('')
+        setUserNamesign(response.data.user.Name)
+        if (userNameSign.trim() !== '') {
+          updateUserName(userNameSign);
+          setNewUsername(''); // Optional: Clear the input or state after updating
+        }
+        setShowProfile(true);
+        setUserNamesign(response.data.user.Name);
+        setshowauth(false);
+        setnumberExist(false)
+        setshowOtp(false);
+        }
+        else
+        {
+          setShowProfile(false);
+          updateUserName('')
+          setshowauth(true);
+      setshowOtp(false);
+        }
+
+      } catch (error:any) {
+        console.log('Error:', error.response?.data.error);
+      }
+    };
+  
+    fetchData();
+  
+    const storedToken = localStorage.getItem('token');
+    const storedUserName = localStorage.getItem('userName');
+    const storedEmail = localStorage.getItem('email');
+    console.log('Stored Token (Outside fetchData):', storedToken);
+  
+    if (storedToken && storedUserName && storedEmail) {
+      setshowauth(false);
+      setshowOtp(false);
+      setShowProfile(true);
+      setUserNamesign(storedUserName);
+      if (userNameSign.trim() !== '') {
+        updateUserName(userNameSign);
+        setNewUsername(''); // Optional: Clear the input or state after updating
+      }
     }
-  }
-  fetchData1();
-  },[])
+  }, []);
+  
 
 
 
+
+
+  // useEffect(() => {
+  //   const fetchData1 = async () => {
+  //   try {
+  //     const response = await fetch('http://localhost:4000/signup/response/temp');
+  //     const data = await response.json();
+  //     console.log('Response:', data);
+  //   } catch (error) {
+  //     console.log('Error111:', error);
+  //   }
+  // }
+  // fetchData1();
+  // },[])
+
+
+
+
+  const handleOtpSuccessforLogin = async () => {
+    try {
+      const postData = {
+        Name: userName,
+        Email: email,
+        MobileNo:`+91${phoneNumber}`
+      };
+      console.log(postData)
+      const response = await axios.post('http://localhost:4000/signup', postData);
+      // console.log(response.data.message)
+      console.log(response)
+      let temp:string=response.data.message;
+
+
+      if(temp=='signup successful using mobile no'){
+      setshowauth(false);
+      setshowOtp(false);
+      setShowProfile(true);
+      setshowOtpMobile(false);
+      setnumberExist(false)
+      }
+
+
+      const token = response.data.token;
+      localStorage.setItem('token', token);
+      localStorage.setItem('userName', userName);
+      localStorage.setItem('email', email);
+      console.log('data:', response.data);
+      console.log('data :', response.data.user.Name);
+      setUserNamesign( response.data.user.Name)
+    } catch (error:any) {
+      console.log('Error:', error.response?.data.error);
+      
+    }
+  };
+
+  const navigate = useNavigate();
+
+  const handelProfile = () => {
+    // Use navigate to go to the "profile" route
+    navigate('/profile');
+  };
 
 
 
@@ -239,7 +392,7 @@ useEffect(() => {
         Email: email,
         otp:otp,
       };
-      const response = await axios.post('https://zomato-nuit.onrender.com/signup/verify', postData);
+      const response = await axios.post('http://localhost:4000/signup/verify', postData);
       console.log(response.data.message)
       let temp:string=response.data.message;
 
@@ -258,12 +411,52 @@ useEffect(() => {
       console.log('data:', response.data);
       console.log('data :', response.data.user.Name);
       setUserNamesign( response.data.user.Name)
+      if (userNameSign.trim() !== '') {
+        updateUserName(userNameSign);
+        setNewUsername(''); // Optional: Clear the input or state after updating
+      }
     } catch (error:any) {
       console.log('Error:', error.response?.data.error);
       
     }
   };
 
+
+  const handleOtpEmail = async () => {
+    try {
+      const postData = {
+        Email: email,
+        otp:otp,
+      };
+      const response = await axios.post('http://localhost:4000/login/verify', postData);
+      console.log(response.data.message)
+      let temp:string=response.data.message;
+
+
+      if(temp=='login successful'){
+      setshowauth(false);
+      setshowOtp(false)
+      setShowProfile(true)
+      setShowEmailOtp(false)
+      }
+
+
+      const token = response.data.token;
+      localStorage.setItem('token', token);
+      localStorage.setItem('userName', userName);
+      localStorage.setItem('email', email);
+      console.log('data:', response.data);
+      console.log('data :', response.data.user.Name);
+      setUserNamesign( response.data.user.Name)
+      if (userNameSign.trim() !== '') {
+        updateUserName(userNameSign);
+        setNewUsername(''); // Optional: Clear the input or state after updating
+      }
+    } catch (error:any) {
+      console.log('Error:', error.response?.data.error);
+      
+    }
+  };
 
 
   const handleOtpMobile = async () => {
@@ -272,12 +465,26 @@ useEffect(() => {
         MobileNo:`+91${phoneNumber}`,
         otp:mobileOtp
       };
-      const response = await axios.post('https://zomato-nuit.onrender.com/login/verify', postNumber);
+      const response = await axios.post('http://localhost:4000/login/verify', postNumber);
       console.log(response.data)
       const token = response.data.token;
       localStorage.setItem('token', token);
-      console.log('Token:', token);
-
+      // console.log('Token:', token);
+      if(response.data.message==='login successful')
+      {
+        setUserName(response.data.user.Name)
+        setUserNamesign(response.data.user.Name)
+        if (userNameSign.trim() !== '') {
+          updateUserName(userNameSign);
+          setNewUsername(''); // Optional: Clear the input or state after updating
+        }
+        setnumberExist(false);
+        setshowOtpMobile(false);
+        setshowauth(false);
+      setshowOtp(false);
+      setShowProfile(true);
+      setPhoneNumber('')
+      }
     } catch (error:any) {
       console.log('Error1:', error);
       if(error.response.data.msg==='please sign up')
@@ -287,15 +494,18 @@ useEffect(() => {
         setshowOtpMobile(false)
         handleExit();
       }
-      
+      if(error.response.data.error==='Invalid OTP')
+        setOtpVerify(true);
+      setVerifyMessage(error.response.data.error)
+      }
     }
-  };
+  
 
 
 
   const handleLogingoogle = async () => {
     try {
-     const temp= window.location.assign("https://zomato-nuit.onrender.com/signup/google");    
+     const temp= window.location.assign("http://localhost:4000/signup/google");    
      console.log('data',temp)
       }
     
@@ -305,14 +515,22 @@ useEffect(() => {
     }
   };
 
-  // http://localhost:3000/?code=4%2F0AfJohXmjBJojGOc95jBxQvXPf8AZLuSw5VGI3JwY48hSYhwgmCFUWrqP49gSnpBxhInh4w&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=0&hd=codingmart.com&prompt=consent#
+  const handleLoginEmail = () => {
+setshowLogin(false);
+setShowEmail(true);
+
+  };
+
+
+
+  // http://localhost:3000/?code=4%2F0AfJohXmjBJojGOc95jBxQvXPf8AZLuSw5VGI3JwY48hSYhwgmCFUWrqP49gSnpBxhInh4w&scope=email+profile+http%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+http%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=0&hd=codingmart.com&prompt=consent#
 
   // const handleLogingoogle = async () => {
   //   try {
-  //     const response = await axios.get('https://zomato-nuit.onrender.com/signup/google',{
+  //     const response = await axios.get('http://localhost:4000/signup/google',{
   //       params: {
   //         response_type: 'code',
-  //         redirect_uri: 'https://zomato-nuit.onrender.com/signup/google/redirect',
+  //         redirect_uri: 'http://localhost:4000/signup/google/redirect',
   //         scope: 'profile email',
   //         client_id: '602927526483-729hetb1iu3ejamt0pgime5dutm3vpd2.apps.googleusercontent.com',
   //       },
@@ -352,7 +570,7 @@ useEffect(() => {
         Name: userName,
         Email: email,
       };
-      const response = await axios.post('https://zomato-nuit.onrender.com/signup', postData);
+      const response = await axios.post('http://localhost:4000/signup', postData);
       console.log(response.data.error)
     } catch (error:any) {
       const responseDataFromServer = error.response.data.error;
@@ -362,8 +580,33 @@ useEffect(() => {
       // setshowOtp(true)
     }
   };
+  
+  const handleEmailLogin=()=>{
+console.log(email)
+    const temp=async ()=>{
+    try {
+      const postData = {
+        Email: email,
+      };
+      const response = await axios.post('http://localhost:4000/login', postData);
+      console.log(response.data)
+      let temp:string=response.data.message;
 
-  const handlePostRequestLogin = async () => {
+
+      if(temp=='OTP sent for verification'){
+     setShowEmail(false)
+    setShowEmailOtp(true)
+      // setShowProfile(true)
+      }
+  }
+  catch (error:any) {
+  console.log(error.response.data.error)
+  setEmailRegister(error.response.data.error)
+  }}
+  temp()
+}
+const[emailregister,setEmailRegister]=useState<string>('')
+const handlePostRequestLogin = async () => {
     setTimeout(() => {
       setshowLogin(false)
       setLoading(true); 
@@ -385,7 +628,7 @@ useEffect(() => {
         Email: email,
         MobileNo:`+91${phoneNumber}`
       };
-      const response = await axios.post('https://zomato-nuit.onrender.com/signup', postData);
+      const response = await axios.post('http://localhost:4000/signup', postData);
       console.log(response.data.error)
     } catch (error:any) {
       const responseDataFromServer = error.response.data.error;
@@ -401,25 +644,13 @@ useEffect(() => {
 
     setshowLogin(false)
     setshowOtpMobile(true)
-    // setshowSignUp(false)
-    
-    // if (exist === false) {
-    //   const delay = 500; 
-    //   setTimeout(() => {
-    //     setshowOtp(true);
-    //   }, delay);
-    // }
     try {
       const postNumber = {
         MobileNo:`+91${phoneNumber}`
       };
-      const response = await axios.post('https://zomato-nuit.onrender.com/login', postNumber);
+      const response = await axios.post('http://localhost:4000/login', postNumber);
       console.log(response.data)
     } catch (error:any) {
-      // const responseDataFromServer = error.response.data.error;
-      // setResponseData(responseDataFromServer);
-      // console.log('Error:',responseDataFromServer );
-      // setExist(true);
       console.log('Error:',error);
     }
   };
@@ -434,7 +665,7 @@ useEffect(() => {
         Name: userName,
         Email: email,
       };
-      const response = await axios.post('https://zomato-nuit.onrender.com/signup', postData);
+      const response = await axios.post('http://localhost:4000/signup', postData);
       console.log(response.data)
     } catch (error) {
       console.error('Error:', error);
@@ -449,7 +680,7 @@ useEffect(() => {
       const postNumber = {
         MobileNo:`+91${phoneNumber}`
       };
-      const response = await axios.post('https://zomato-nuit.onrender.com/login', postNumber);
+      const response = await axios.post('http://localhost:4000/login', postNumber);
       console.log(response.data)
     } catch (error:any) {
       // const responseDataFromServer = error.response.data.error;
@@ -464,14 +695,11 @@ useEffect(() => {
 
   const fetchData = async (value: string) => {
     try {
-      const response = await fetch(`https://zomato-nuit.onrender.com/searchHotels?startsWithLetter=${value}`);
-      if (!response.ok) {
-        throw new Error(`Network response was not ok: ${response.status}`);
-      }
-  
-      const json = await response.json();
-      console.log(json.hotels)
-      setResults(json);
+      const response = await axios.get(`http://localhost:4000/search?startsWithLetter=${value}`);
+ 
+      console.log('start')
+      console.log(response.data.search)
+      setResults(response.data);
     } catch (error) {
       console.error('Error during fetch:', error);
     }
@@ -485,8 +713,7 @@ useEffect(() => {
     }
     else
     setShowOverlay(inputs.length>0)
-    setResults({ hotels: [temp] });
-
+    setResults({ search: [temp] });
   }, [inputs]);
   
   const temp: Hotel = {
@@ -526,6 +753,23 @@ useEffect(() => {
       clearInterval(interval);
     };
   }, [showOtp]);
+
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+  
+    if (showEmailOtp) {
+      setTimer(10);
+      interval = setInterval(() => {
+        setTimer((prevTimer) => (prevTimer > 0 ? prevTimer - 1 : 0));
+      }, 1000);
+    }
+  
+    return () => {
+      clearInterval(interval);
+    };
+  }, [showEmailOtp]);
+
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
@@ -582,11 +826,64 @@ useEffect(() => {
     }
   };
 
+
+  const [token, setToken] = useState<string>('');
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setEmailRegister('');
+    }, 10000);
+
+    return () => clearTimeout(timeoutId);
+  }, [emailregister]); 
+  useEffect(() => {
+    const fetchData1 = async () => {
+    // try {
+    //   const response = await  fetch('http://zomato-nuit.onrender.com/user', {
+    //     method: 'GET',
+    //     credentials: 'include', // Include credentials (cookies) in the request
+    //   });
+    //   const data = await response.json();
+    //   console.log('Response:', data);
+    // } catch (error) {
+    //   console.log("cookie",document.cookie);
+    //   console.log('Error111:', error);
+    // }
+    const cookieValue = Cookies.get('token1');
+    console.log("cookie",cookieValue);
+    const postData = {
+      Token : cookieValue,
+    }
+    try {
+      const response = await axios.post("http://localhost:4000/onload",postData);
+      console.log("name",response.data);
+      if(response.data.user.Name){
+        setShowProfile(true);
+  setshowauth(false);
+  setUserNamesign(response.data.user.Name);
+  // setUserNamesign(response.data.user.Name)
+ 
+  updateUserName(userNameSign);
+    // setNewUsername(''); // Optional: Clear the input or state after updating
+  
+  setImage(response.data.user.ProfilePic);
+
+      }
+      
+    } catch (error) {
+      console.log("e",error);
+    }
+    
+   
+ 
+  }
+  fetchData1();
+  },[])
   return (
     <div className='zomato-navbar'>
         
       <div className='logo-container'>
-        <img className='zomato-logo' src="https://b.zmtcdn.com/web_assets/b40b97e677bc7b2ca77c58c61db266fe1603954218.png" alt="Zomato Logo" />
+        <img className='zomato-logo' src="http://b.zmtcdn.com/web_assets/b40b97e677bc7b2ca77c58c61db266fe1603954218.png" alt="Zomato Logo" />
       </div>
       <div className='search-wrap'>
         <div className='location-search'>
@@ -613,30 +910,37 @@ useEffect(() => {
        <div className='auth-section'>
        {auth &&
        <>
-        <span onClick={handleLogin}>
-          Login
+        <span className='Alogin' onClick={handleLogin}>
+          Log in
         </span>
-        <span onClick={handleSignup}>
-          SignUp
+        <span className='Asignin' onClick={handleSignup}>
+          Sign up
         </span>
         </>
       }
 
       {profile&&
       <>
-      <div className='profile'>
+      <div className='profile' >
        
-          <div>
-          <img  className='profileImage' src="https://b.zmtcdn.com/web/assets/2267aec184e096c98c46a1565a5563661664945464.png?fit=around%7C100%3A100&amp;crop=100%3A100%3B%2A%2C%2A" />
+          <div >
+          {image ? (
+        <img className='profileImage' src={image} />
+      ) : (
+        <img
+          className='profileImage'
+          src="http://b.zmtcdn.com/web/assets/2267aec184e096c98c46a1565a5563661664945464.png?fit=around%7C100%3A100&amp;crop=100%3A100%3B%2A%2C%2A"
+          alt="Default Image"
+        />
+      )}
           </div>
-          <div onClick={handleLogoutShow} className='profileName'>
-            <div>
-              <span>{userNameSign}</span>
-            </div>
+          {/* <div>    */}
+              <span onClick={handleLogoutShow} className='profileName'>{userNameSign}</span>
+           
             
-          </div>
-          <div onClick={handleLogoutShow} >
-            <svg xmlns="http://www.w3.org/2000/svg"  width="18" height="18" viewBox="0 0 20 20" aria-labelledby="icon-svg-title- icon-svg-desc-" role="img" ><title>chevron-down</title><path d="M4.48 7.38c0.28-0.28 0.76-0.28 1.060 0l4.46 4.48 4.48-4.48c0.28-0.28 0.76-0.28 1.060 0s0.28 0.78 0 1.060l-5 5c-0.3 0.3-0.78 0.3-1.060 0l-5-5c-0.3-0.28-0.3-0.76 0-1.060z"></path></svg>
+          {/* </div> */}
+          <div  className='profielName1' onClick={handleLogoutShow} >
+            <svg  className='profielName1' xmlns="http://www.w3.org/2000/svg"  width="22" height="30" viewBox="0 0 20 20" aria-labelledby="icon-svg-title- icon-svg-desc-" role="img" ><title>chevron-down</title><path d="M4.48 7.38c0.28-0.28 0.76-0.28 1.060 0l4.46 4.48 4.48-4.48c0.28-0.28 0.76-0.28 1.060 0s0.28 0.78 0 1.060l-5 5c-0.3 0.3-0.78 0.3-1.060 0l-5-5c-0.3-0.28-0.3-0.76 0-1.060z"></path></svg>
             </div>
         </div>
  
@@ -646,13 +950,14 @@ useEffect(() => {
 
 
       {showOverlay&&
-      <div className='overlay' ><Search results={results.hotels}/></div>
+      <div className='overlay' > <Search results={results.search} closeOverlay={toggleOverlay} /></div>
       }
 
 {showOverlayLogout&&
       <div className='overlayLogout'>
         <div className='overlayLogoutflex'>
-        <div className='logout'>Profile</div>
+        <div className='logout'  onClick={()=>{handelProfile();setShowOverlayLogout(false)
+        }}>Profile</div>
         <div className='logout'>Notification</div>
         <div className='logout'>BookMark</div>
         <div className='logout'>Review</div>
@@ -662,8 +967,13 @@ useEffect(() => {
         </div>
       </div>
       }
-
-
+{/* 
+<Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+      > */}
       {showSignUp&&
       <div className='overlay1' >
         <div className='signUp'>
@@ -736,7 +1046,7 @@ useEffect(() => {
           </div>
       </div>
       }
-
+{/* </Modal> */}
 
 
 
@@ -779,6 +1089,104 @@ useEffect(() => {
   </div>
 }
 
+{/* <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+      > */}
+{otpLogin &&
+  <div className='overlayOtp'>
+    <div className='signUp'>
+      <div className='signupLogo'> Enter OTP</div>
+      <div className='exitSignup' onClick={() => {
+        setshowOtp(false);
+        setotpLogin(false)
+        handleExit();
+      }}> <svg xmlns="http://www.w3.org/2000/svg" fill="#1C1C1C" width="24" height="24" viewBox="0 0 20 20" aria-labelledby="icon-svg-title- icon-svg-desc-" role="img"><title>cross</title><path d="M11.42 10.42l3.54-3.54c0.38-0.4 0.38-1.040 0-1.42s-1.020-0.4-1.42 0l-3.54 3.54-3.54-3.54c-0.4-0.4-1.020-0.4-1.42 0s-0.38 1.020 0 1.42l3.54 3.54-3.54 3.54c-0.38 0.38-0.38 1.020 0 1.42 0.2 0.18 0.46 0.28 0.72 0.28s0.5-0.1 0.7-0.28l3.54-3.56 3.54 3.56c0.2 0.18 0.46 0.28 0.72 0.28s0.5-0.1 0.7-0.28c0.38-0.4 0.38-1.040 0-1.42l-3.54-3.54z"></path></svg></div>
+    </div>
+    <div className='otpText'>
+      Verification code has been sent to your email, a*****a@gmail.com, please enter the same here to complete the signup. Valid for 10 minutes.
+    </div>
+    <div className="inputContainerOtp">
+      <input type="text" className="customInput" placeholder='OTP' onChange={handleOtpDigit} />
+    </div>
+    <div>
+      <button onClick={handleOtp} className='otpProceed'>
+        Proceed
+      </button>
+      <div className='timer'>
+  {timer > 0
+    ? `${Math.floor(timer / 60) < 10 ? '0' : ''}${Math.floor(timer / 60)}:${timer % 60 < 10 ? '0' : ''}${timer % 60}`
+    : '00:00'}
+</div>
+
+<div className='resendOtp'>
+  Didn't receive OTP?
+  <span
+    style={{ color: timer === 0 ? 'red' : 'rgba(.0 , .0, .0, 0.5)', cursor: timer === 0 ? 'pointer' : 'inherit' }}
+    onClick={timer === 0 ? handleResend : undefined}
+  >
+    Resend Now
+  </span>
+</div>
+
+    </div>
+  </div>
+}
+
+{/* </Modal> */}
+
+
+
+
+{showEmailOtp &&
+  <div className='overlayOtp'>
+    <div className='signUp'>
+      <div className='signupLogo'> Enter OTP</div>
+      <div className='exitSignup' onClick={() => {
+        setshowOtp(false);
+        setotpLogin(false)
+        setShowEmailOtp(false)
+        handleExit();
+      }}> 
+      <svg xmlns="http://www.w3.org/2000/svg" fill="#1C1C1C" width="24" height="24" viewBox="0 0 20 20" aria-labelledby="icon-svg-title- icon-svg-desc-" role="img"><title>cross</title><path d="M11.42 10.42l3.54-3.54c0.38-0.4 0.38-1.040 0-1.42s-1.020-0.4-1.42 0l-3.54 3.54-3.54-3.54c-0.4-0.4-1.020-0.4-1.42 0s-0.38 1.020 0 1.42l3.54 3.54-3.54 3.54c-0.38 0.38-0.38 1.020 0 1.42 0.2 0.18 0.46 0.28 0.72 0.28s0.5-0.1 0.7-0.28l3.54-3.56 3.54 3.56c0.2 0.18 0.46 0.28 0.72 0.28s0.5-0.1 0.7-0.28c0.38-0.4 0.38-1.040 0-1.42l-3.54-3.54z"></path></svg></div>
+    </div>
+    <div className='otpText'>
+      Verification code has been sent to your email, a*****a@gmail.com, please enter the same here to complete the signup. Valid for 10 minutes.
+    </div>
+    <div className="inputContainerOtp">
+      <input type="text" className="customInput" placeholder='OTP' onChange={handleOtpDigit} />
+    </div>
+    <div>
+      <button onClick={handleOtpEmail} className='otpProceed'>
+        Proceed
+      </button>
+      <div className='timer'>
+  
+  {timer > 0
+    ? `${Math.floor(timer / 60) < 10 ? '0' : ''}${Math.floor(timer / 60)}:${timer % 60 < 10 ? '0' : ''}${timer % 60}`
+    : '00:00'}
+    
+</div>
+
+<div className='resendOtp'>
+  Didn't receive OTP?
+  <span
+    style={{ color: timer === 0 ? 'red' : 'rgba(.0 , .0, .0, 0.5)', cursor: timer === 0 ? 'pointer' : 'inherit' }}
+    onClick={timer === 0 ? handleLoginEmail : undefined}
+  >
+    Resend Now
+  </span>
+</div>
+
+    </div>
+  </div>
+}
+
+
+
+
 
 {showOtpMobile && 
   <div className='overlayOtp'>
@@ -792,11 +1200,12 @@ useEffect(() => {
       }}> <svg xmlns="http://www.w3.org/2000/svg" fill="#1C1C1C" width="24" height="24" viewBox="0 0 20 20" aria-labelledby="icon-svg-title- icon-svg-desc-" role="img"><title>cross</title><path d="M11.42 10.42l3.54-3.54c0.38-0.4 0.38-1.040 0-1.42s-1.020-0.4-1.42 0l-3.54 3.54-3.54-3.54c-0.4-0.4-1.020-0.4-1.42 0s-0.38 1.020 0 1.42l3.54 3.54-3.54 3.54c-0.38 0.38-0.38 1.020 0 1.42 0.2 0.18 0.46 0.28 0.72 0.28s0.5-0.1 0.7-0.28l3.54-3.56 3.54 3.56c0.2 0.18 0.46 0.28 0.72 0.28s0.5-0.1 0.7-0.28c0.38-0.4 0.38-1.040 0-1.42l-3.54-3.54z"></path></svg></div>
     </div>
     <div className='otpText'>
-      Verification code has been sent to your email, a*****a@gmail.com, please enter the same here to complete the signup. Valid for 10 minutes.
+      Verification code has been sent to Mobile Number, 7**********9, please enter the same here to complete the Login. Valid for 10 minutes.
     </div>
     <div className="inputContainerOtp">
       <input type="text" className="customInput" placeholder='OTP' onChange={handleOtpMobilePhone} />
     </div>
+    {Otpverify && <span style={{color:"red",marginLeft:"20vw",marginBottom:"2vw"}}>{otpVerifyMessage}</span>}
     <div>
       <button onClick={handleOtpMobile} className='otpProceed'>
         Proceed
@@ -828,7 +1237,10 @@ useEffect(() => {
       <div className='overlay1' >
         <div className='signUp'>
          <div className='signupLogo'>Login</div>
-         <div className='exitSignup' onClick={handleExit}> <svg xmlns="http://www.w3.org/2000/svg" fill="#1C1C1C" width="24" height="24" viewBox="0 0 20 20" aria-labelledby="icon-svg-title- icon-svg-desc-" role="img" ><title>cross</title><path d="M11.42 10.42l3.54-3.54c0.38-0.4 0.38-1.040 0-1.42s-1.020-0.4-1.42 0l-3.54 3.54-3.54-3.54c-0.4-0.4-1.020-0.4-1.42 0s-0.38 1.020 0 1.42l3.54 3.54-3.54 3.54c-0.38 0.38-0.38 1.020 0 1.42 0.2 0.18 0.46 0.28 0.72 0.28s0.5-0.1 0.7-0.28l3.54-3.56 3.54 3.56c0.2 0.18 0.46 0.28 0.72 0.28s0.5-0.1 0.7-0.28c0.38-0.4 0.38-1.040 0-1.42l-3.54-3.54z"></path></svg></div>
+         <div className='exitSignup' onClick={()=>{ setshowOtp(false);
+        handleExit();
+        setshowOtpMobile(false)
+        setPhoneNumber('')}}> <svg xmlns="http://www.w3.org/2000/svg" fill="#1C1C1C" width="24" height="24" viewBox="0 0 20 20" aria-labelledby="icon-svg-title- icon-svg-desc-" role="img" ><title>cross</title><path d="M11.42 10.42l3.54-3.54c0.38-0.4 0.38-1.040 0-1.42s-1.020-0.4-1.42 0l-3.54 3.54-3.54-3.54c-0.4-0.4-1.020-0.4-1.42 0s-0.38 1.020 0 1.42l3.54 3.54-3.54 3.54c-0.38 0.38-0.38 1.020 0 1.42 0.2 0.18 0.46 0.28 0.72 0.28s0.5-0.1 0.7-0.28l3.54-3.56 3.54 3.56c0.2 0.18 0.46 0.28 0.72 0.28s0.5-0.1 0.7-0.28c0.38-0.4 0.38-1.040 0-1.42l-3.54-3.54z"></path></svg></div>
           </div>
           <div className="inputContainer">
           <input
@@ -837,10 +1249,8 @@ useEffect(() => {
   placeholder="Phone Number"
   value={phoneNumber}
   onChange={handlePhoneNumber}
-  // onBlur={() => handleBlur('userName')}
-  // onFocus={() => handleFocus('userName')}
   onInput={(e:any) => {
-    e.target.value = e.target.value.replace(/[^0-9]/g, ''); // Allow only numeric characters
+    e.target.value = e.target.value.replace(/[^0-9]/g, ''); 
   }}
 />
     </div>
@@ -848,11 +1258,21 @@ useEffect(() => {
           <button
   onClick={handleOtpPhone}
   className={`loginCreateAccount ${(!numberCheck) ? 'disabled' : ''}`}
-  // disabled={!numberCheck}
+  disabled={!numberCheck}
 >
 Send OTP
 </button>
 
+          </div>
+          <div style={{fontSize:"24px",marginLeft:"16vw",marginBottom:"1vw",marginTop:"1vw"}}>or</div>
+          <div>
+            <button className='loginGoogle'  onClick={handleLoginEmail}>
+          <div> <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" fill="red" width="20" height="20">
+  <path d="M10 9.58c-1.62 0-10-4.76-10-4.76v-0.74c0-0.92 0.74-1.66 1.66-1.66h16.68c0.92 0 1.66 0.74 1.66 1.66l-0.020 0.84c0 0-8.28 4.66-9.98 4.66zM10 11.86c1.78 0 9.98-4.46 9.98-4.46l0.020 10c0 0.92-0.74 1.66-1.66 1.66h-16.68c-0.92 0-1.66-0.74-1.66-1.66l0.020-10c0 0 8.36 4.46 9.98 4.46z"></path>
+</svg>
+  </div> 
+             <div className='loginGoogletext'>Continue with Email</div>  
+            </button>
           </div>
           <div>
             <button className='loginGoogle'  onClick={handleLogingoogle}>
@@ -860,8 +1280,97 @@ Send OTP
              <div className='loginGoogletext'>Continue with Google</div>  
             </button>
           </div>
+          <p style={{color:"black",marginLeft:"28px"}}>
+  New to zomato?
+  <span style={{color:"red"}}
+    onClick={() => {
+      setShowEmail(false);
+      setshowLogin(false);
+      setshowSignUp(true);
+    }}
+  >
+    Sign up
+  </span>
+</p>
       </div>
       }
+
+
+
+
+
+
+
+{showEmail&&
+<div className='overlay1' >
+  <div className='signUp'>
+   <div className='signupLogo'>Login</div>
+   <div className='exitSignup' onClick={()=>{ setshowOtp(false);
+  handleExit();
+  setShowEmail(false)
+  setshowOtpMobile(false)
+  setPhoneNumber('')}}> <svg xmlns="http://www.w3.org/2000/svg" fill="#1C1C1C" width="24" height="24" viewBox="0 0 20 20" aria-labelledby="icon-svg-title- icon-svg-desc-" role="img" ><title>cross</title><path d="M11.42 10.42l3.54-3.54c0.38-0.4 0.38-1.040 0-1.42s-1.020-0.4-1.42 0l-3.54 3.54-3.54-3.54c-0.4-0.4-1.020-0.4-1.42 0s-0.38 1.020 0 1.42l3.54 3.54-3.54 3.54c-0.38 0.38-0.38 1.020 0 1.42 0.2 0.18 0.46 0.28 0.72 0.28s0.5-0.1 0.7-0.28l3.54-3.56 3.54 3.56c0.2 0.18 0.46 0.28 0.72 0.28s0.5-0.1 0.7-0.28c0.38-0.4 0.38-1.040 0-1.42l-3.54-3.54z"></path></svg></div>
+    </div>
+    <img className='emailImage' src="http://b.zmtcdn.com/Zwebmolecules/73b3ee9d469601551f2a0952581510831595917292.png" alt="" />
+    <div className="inputContainer">
+     
+    <input
+        type="text"
+        className={`customInput ${emailError && 'error'}`}
+        placeholder="Email"
+        value={email}
+        onChange={handleEmail}
+        onBlur={() => handleBlur1('email')}
+        onFocus={() => handleFocus('email')}
+      />
+</div>
+
+
+    <div>
+     {emailregister&& <p style={{color:"red",marginLeft:"2vw",marginBottom:"0vw"}}>
+     {
+      emailregister}</p>
+    }
+      
+
+    <button
+onClick={handleEmailLogin}
+className={`loginCreateAccount ${(!emailcheck) ? 'disabled' : ''}`}
+disabled={!emailcheck}
+>
+Send One Time Password
+</button>
+<p style={{color:"black",marginLeft:"28px"}}>
+  New to zomato?
+  <span style={{color:"red"}}
+    onClick={() => {
+      setShowEmail(false);
+      setshowLogin(false);
+      setshowSignUp(true);
+    }}
+  >
+    Sign up
+  </span>
+</p>
+
+    </div>
+
+</div>
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 {numberExist&&
@@ -915,7 +1424,7 @@ Send OTP
             setTimeout(() => {
               setLoading(false);         
             }, 500);
-              handlePostRequestLogin()
+            handleOtpSuccessforLogin()
          
           }}
           className={`loginCreateAccount ${(!namecheck || !emailcheck || !agreeChecked) ? 'disabled' : ''}`}
@@ -947,9 +1456,13 @@ Send OTP
       <p className='responseErrorSkip' onClick={handleErrorSkip}>skip for now</p>
 </div>
 }
+
+
     </div>
     
   );
+
 }
+
 
 export default Navbar;

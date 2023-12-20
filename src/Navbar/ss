@@ -1,0 +1,49 @@
+//   useEffect(() => {
+//     const fetchData = async () => {
+//       try {
+//         const storedToken1 = localStorage.getItem('token');
+//         console.log('Stored Token:', storedToken1);
+  
+//         const postToken = {
+//           Token: storedToken1,
+//         };
+  
+//         const response = await axios.post('https://zomato-nuit.onrender.com/onload', postToken);
+//         console.log('API Response:', response.data.user.Name);
+        
+//         if(response.data.user.Name){
+//           setPhoneNumber('')
+//         setUserNamesign(response.data.user.Name)
+//         setShowProfile(true);
+//         setUserNamesign(response.data.user.Name);
+//         setshowauth(false);
+//         setnumberExist(false)
+//         setshowOtp(false);
+//         }
+//         else
+//         {
+//           setShowProfile(false);
+//           setshowauth(true);
+//       setshowOtp(false);
+//         }
+
+//       } catch (error:any) {
+//         console.log('Error:', error.response?.data.error);
+//       }
+//     };
+  
+//     fetchData();
+  
+//     const storedToken = localStorage.getItem('token');
+//     const storedUserName = localStorage.getItem('userName');
+//     const storedEmail = localStorage.getItem('email');
+//     console.log('Stored Token (Outside fetchData):', storedToken);
+  
+//     if (storedToken && storedUserName && storedEmail) {
+//       setshowauth(false);
+//       setshowOtp(false);
+//       setShowProfile(true);
+//       setUserNamesign(storedUserName);
+//     }
+//   }, []);
+  

@@ -1,0 +1,36 @@
+.hotelVariety {
+    margin-left: 13.8vw;
+}
+
+.d.sticky {
+    position: sticky;
+    background-color: white;
+}
+
+.dishflex {
+    display: flex;
+}
+
+.hotelResult {
+    width: 9vw;
+    height: 9vw;
+    border-radius: 20px;
+}
+
+.dishflex1 {
+    display: flex;
+    padding: 10px 2vw 2vw 1vw;
+    margin-left: 5vw;
+}
+
+.hotelResultText1 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-left: 1vw;
+}
+
+.hotelResultText2 {
+    font-size: 18px;
+    margin-left: 1vw;
+    /* font-weight: bold; */
+}

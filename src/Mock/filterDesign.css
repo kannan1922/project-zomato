@@ -1,0 +1,97 @@
+.filterResultImage{
+width: 25vw;
+border-radius: 20px;
+height: 20vw;
+font-family: Arial, Helvetica, sans-serif;
+padding: 0px;
+}
+.filterResultFlex {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.wap:hover{
+background-color: rgba(.0, .0, .0, .03);
+border-radius: 20px;
+border: 1px solid rgba(.0, .0, .0, .2);
+}
+.wap {
+  border: 1px solid transparent;
+  margin-top: 5vw;
+  box-sizing: border-box;
+  padding:1.3vw;
+  /* padding-right: -1vw; */
+  width: calc(33.33% - 5vw); /* Adjust the width as needed, and subtract padding */
+
+}
+
+/* Add any other styles as needed for your specific layout */
+
+
+
+.resultName{
+    font-size: 18px;
+    /* flex:80%; */
+    width: 80%;
+    flex: 105%;
+    margin-left: 5px;
+}
+.resultfirstFlex{
+    display: flex;
+    flex-direction: row;
+ 
+}
+.ratingColor1 {
+    background-color: rgb(36, 150, 63);
+    display: flex;
+    border-radius: 0.5rem;
+    padding: 1.5px 5px 0px 5px;
+    font-size: 13.5px;
+    font-weight: bold;
+    color: white;
+  }
+  .RratingColor1 {
+    background-color: rgb(36, 150, 63);
+    display: flex;
+    border-radius: 0.5rem;
+    padding: 1.5px 5px 0px 5px;
+    font-size: 13.5px;
+    font-weight: bold;
+    color: white;
+  }
+  
+  .RratingColor {
+    display: flex;
+    flex:12%
+    /* margin-left: 39vw; */
+    /* position: fixed; */
+  }
+  
+  .RsearchSvg {
+    padding: 1px 0px 0px 3px;
+    margin-top: 1px;
+  }
+  .resultDishes{
+    font-size: 15px;
+    color: rgba(.0, .0, .0, .6);
+    flex: 5%;
+    margin-left: 0.3vw;
+  }
+  .resultDishesFlex{
+    display: flex;
+    flex-direction: row;
+width: 96%;
+  }
+  .resultDishes1{
+    font-size: 15px;
+    color: rgba(.0, .0, .0, .6);
+    /* padding-right:0.8vw; */
+    
+  }
+  .filterResultsFlex {
+    display: flex;
+    margin-top: 0.5vw;
+    justify-content: center;  
+    width: 96%;
+  }
+

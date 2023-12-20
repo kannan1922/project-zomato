@@ -1,4 +1,4 @@
-/* Add this CSS to your project */
+
 
 .w-75 {
     width: 85%;
@@ -67,17 +67,12 @@
   .flex-col {
     flex-direction: column;
   }
+
   
-  .gap-4 {
-    gap: 1rem;
-  }
-  
-  .padding-4 {
-    padding: 1rem;
-  }
+
   
   .text-xl {
-    font-size: 1.25rem;
+    font-size: 9.25rem;
   }
   
   .font-semibold {
@@ -117,15 +112,16 @@
  .slick-prev:before{
     font-size: larger;
     background-color: aquamarine;
- }.custom-arrow {
+ }
+ .custom-arrow {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
     background-color: #fff; /* Customize the background color as needed */
     border: 1px solid #ddd; /* Customize the border as needed */
-    /* padding: 10px; */
+    padding: 2px !important;;
     cursor: pointer;
-    border-radius: 50%;
+    border-radius: 80%;
     outline: palevioletred;
   }
   
@@ -139,4 +135,10 @@
   }
   .slick-slider {
     overflow: hidden; /* Ensure that the slider content doesn't overflow */
+  }
+  .kkk{
+    max-width: 1%;
+    font-size: 14px;
+    justify-content: center;
+    margin-left: 2vw;
   }
