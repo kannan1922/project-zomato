@@ -52,6 +52,7 @@
 .searchFlex {
   display: flex;
   padding: 10px;
+  cursor: pointer;
 }
 
 .searchDetails {

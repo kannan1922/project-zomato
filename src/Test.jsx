@@ -4,7 +4,7 @@ import Footer from "./Hotels/Footer";
 function Test() {
   const navigate = useNavigate();
   const handlecbe = () => {
-    navigate("/coimbatore");
+    navigate("/Coimbatore?Rating=4");
   };
 
   
@@ -13,9 +13,7 @@ function Test() {
       <div className="imageContainer">
         <div className="homeText">
           <div className="homeflex">
-            <div className="dis">Add restaurant</div>
-            <div className="dis">Log in</div>
-            <div className="dis">Sign up</div>
+    
           </div>
           </div>
           <div className="homeText1">

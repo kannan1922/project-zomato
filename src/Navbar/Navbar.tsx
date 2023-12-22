@@ -10,7 +10,7 @@ import Login from './Login';
 import Profile from '../Hotels/Profile';
 import { useUserContext } from '../Context';
 import { useNavigate } from 'react-router-dom';
-// import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 import Modal from "react-bootstrap/Modal";
 interface Hotel {
   _id: string;
@@ -32,6 +32,8 @@ interface SearchProps {
   closeOverlay: () => void;
 }
 function Navbar() {
+  const [debouncedValue, setDebouncedValue] = useState<string>('');
+  const[er,setRe]=useState<string>('')
   const { userName1, updateUserName } = useUserContext();
   const [newUsername, setNewUsername] = useState<string>('');
   const[showEmailOtp,setShowEmailOtp]=useState(false)
@@ -92,6 +94,20 @@ useEffect(() => {
   const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
     setInputs(e.target.value);
   };
+
+
+  
+    useEffect(() => {
+      const timer = setTimeout(() => {
+        setDebouncedValue(inputs);
+      }, 500); 
+      return () => {
+        clearTimeout(timer);
+      };
+    }, [inputs]);
+
+
+
   const handleUsername = (e: ChangeEvent<HTMLInputElement>) => {
     const newUserName = e.target.value;
     setUserName(newUserName);
@@ -126,11 +142,14 @@ useEffect(() => {
   const handleSignup = () => {
     // setshowLogin(false)
   setshowSignUp(true)
+  handleClose();
   handleShow()
   };
 
   const handleLogin = () => {
     setshowLogin(true)
+    handleClose();
+    handleShow()
     };
   const [agreeChecked, setAgreeChecked] = useState(false);
   const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -183,6 +202,7 @@ useEffect(() => {
     localStorage.removeItem('token');
     localStorage.removeItem('userName');
     localStorage.removeItem('email');
+    localStorage.removeItem('id');
     Cookies.remove('token1');
   handleExit();
   setShowProfile(false);
@@ -216,12 +236,14 @@ useEffect(() => {
         
         if(response.data.user.Name){
         setUserNamesign(response.data.user.Name)
+        setImage(response.data.user.ProfilePic)
         if (userNameSign.trim() !== '') {
           updateUserName(userNameSign);
           setNewUsername(''); // Optional: Clear the input or state after updating
         }
         setShowProfile(true);
         setUserNamesign(response.data.user.Name);
+        setImage(response.data.user.ProfilePic)
         setshowauth(false);
         setshowOtp(false);
         }
@@ -243,6 +265,7 @@ useEffect(() => {
     const storedToken = localStorage.getItem('token');
     const storedUserName = localStorage.getItem('userName');
     const storedEmail = localStorage.getItem('email');
+    const storedid = localStorage.getItem('id');
     console.log('Stored Token (Outside fetchData):', storedToken);
   
     if (storedToken && storedUserName && storedEmail) {
@@ -275,12 +298,14 @@ useEffect(() => {
         if(response.data.user.Name){
           setPhoneNumber('')
         setUserNamesign(response.data.user.Name)
+        setImage(response.data.user.ProfilePic)
         if (userNameSign.trim() !== '') {
           updateUserName(userNameSign);
           setNewUsername(''); // Optional: Clear the input or state after updating
         }
         setShowProfile(true);
         setUserNamesign(response.data.user.Name);
+        setImage(response.data.user.ProfilePic)
         setshowauth(false);
         setnumberExist(false)
         setshowOtp(false);
@@ -303,6 +328,7 @@ useEffect(() => {
     const storedToken = localStorage.getItem('token');
     const storedUserName = localStorage.getItem('userName');
     const storedEmail = localStorage.getItem('email');
+    const storedid = localStorage.getItem('id');
     console.log('Stored Token (Outside fetchData):', storedToken);
   
     if (storedToken && storedUserName && storedEmail) {
@@ -358,16 +384,20 @@ useEffect(() => {
       setShowProfile(true);
       setshowOtpMobile(false);
       setnumberExist(false)
+      handleClose();
       }
 
 
       const token = response.data.token;
+      const token1=response.data.user._id;
       localStorage.setItem('token', token);
       localStorage.setItem('userName', userName);
       localStorage.setItem('email', email);
+      localStorage.setItem('id',token1)
       console.log('data:', response.data);
       console.log('data :', response.data.user.Name);
       setUserNamesign( response.data.user.Name)
+      setImage(response.data.user.ProfilePic)
     } catch (error:any) {
       console.log('Error:', error.response?.data.error);
       
@@ -377,12 +407,16 @@ useEffect(() => {
   const navigate = useNavigate();
 
   const handelProfile = () => {
-    // Use navigate to go to the "profile" route
     navigate('/profile');
   };
 
 
-
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setRe('');
+    }, 10000); 
+    return () => clearTimeout(timeoutId);
+  }, [er]); 
 
 
   const handleOtp = async () => {
@@ -401,22 +435,27 @@ useEffect(() => {
       setshowauth(false);
       setshowOtp(false)
       setShowProfile(true)
+      handleClose();
       }
 
 
       const token = response.data.token;
+      const token1=response.data.user._id;
       localStorage.setItem('token', token);
       localStorage.setItem('userName', userName);
       localStorage.setItem('email', email);
+      localStorage.setItem('id', token1);
       console.log('data:', response.data);
       console.log('data :', response.data.user.Name);
       setUserNamesign( response.data.user.Name)
+      setImage(response.data.user.ProfilePic)
       if (userNameSign.trim() !== '') {
         updateUserName(userNameSign);
         setNewUsername(''); // Optional: Clear the input or state after updating
       }
     } catch (error:any) {
       console.log('Error:', error.response?.data.error);
+      setRe(error.response?.data.error)
       
     }
   };
@@ -434,6 +473,7 @@ useEffect(() => {
 
 
       if(temp=='login successful'){
+        handleClose();
       setshowauth(false);
       setshowOtp(false)
       setShowProfile(true)
@@ -442,12 +482,15 @@ useEffect(() => {
 
 
       const token = response.data.token;
+      const token1=response.data.user._id;
       localStorage.setItem('token', token);
       localStorage.setItem('userName', userName);
       localStorage.setItem('email', email);
+      localStorage.setItem('id', id);
       console.log('data:', response.data);
       console.log('data :', response.data.user.Name);
       setUserNamesign( response.data.user.Name)
+      setImage(response.data.user.ProfilePic)
       if (userNameSign.trim() !== '') {
         updateUserName(userNameSign);
         setNewUsername(''); // Optional: Clear the input or state after updating
@@ -468,12 +511,16 @@ useEffect(() => {
       const response = await axios.post('http://localhost:4000/login/verify', postNumber);
       console.log(response.data)
       const token = response.data.token;
+      const token1=response.data.user._id;
       localStorage.setItem('token', token);
+      localStorage.setItem('id', token1);
       // console.log('Token:', token);
       if(response.data.message==='login successful')
       {
         setUserName(response.data.user.Name)
+        setImage(response.data.user.ProfilePic)
         setUserNamesign(response.data.user.Name)
+        handleClose()
         if (userNameSign.trim() !== '') {
           updateUserName(userNameSign);
           setNewUsername(''); // Optional: Clear the input or state after updating
@@ -492,7 +539,15 @@ useEffect(() => {
         setnumberExist(true)
         setshowLogin(false)
         setshowOtpMobile(false)
-        handleExit();
+        setshowSignUp(false);
+        setUserName('');
+        setEmail('');
+        setAgreeChecked(false);
+        setNamecheck(false);
+        setEmailcheck(false);
+        setEmailError('');
+        setNameError('');
+        setshowLogin(false)
       }
       if(error.response.data.error==='Invalid OTP')
         setOtpVerify(true);
@@ -518,7 +573,7 @@ useEffect(() => {
   const handleLoginEmail = () => {
 setshowLogin(false);
 setShowEmail(true);
-
+handleShow();
   };
 
 
@@ -696,7 +751,6 @@ const handlePostRequestLogin = async () => {
   const fetchData = async (value: string) => {
     try {
       const response = await axios.get(`http://localhost:4000/search?startsWithLetter=${value}`);
- 
       console.log('start')
       console.log(response.data.search)
       setResults(response.data);
@@ -706,15 +760,26 @@ const handlePostRequestLogin = async () => {
   };
   
   useEffect(() => {
-    if (inputs.length > 0) {
+    let debounceTimer:any;
+    const fetchDataWithDebounce = () => {
       fetchData(inputs);
-    
-     setShowOverlay(true);
+      setShowOverlay(true);
+    };
+  
+    const debounceFetchData = () => {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(fetchDataWithDebounce, 300); 
+    };
+  
+    if (inputs.length > 0) {
+      debounceFetchData();
+    } else {
+      setShowOverlay(false);
+      setResults({ search: [temp] });
     }
-    else
-    setShowOverlay(inputs.length>0)
-    setResults({ search: [temp] });
+    return () => clearTimeout(debounceTimer);
   }, [inputs]);
+  
   
   const temp: Hotel = {
     Cuisine: [],
@@ -829,6 +894,7 @@ const handlePostRequestLogin = async () => {
 
   const [token, setToken] = useState<string>('');
 
+  const [id, setid] = useState<string>('');
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       setEmailRegister('');
@@ -861,6 +927,8 @@ const handlePostRequestLogin = async () => {
         setShowProfile(true);
   setshowauth(false);
   setUserNamesign(response.data.user.Name);
+  handleClose();
+  setImage(response.data.user.ProfilePic)
   // setUserNamesign(response.data.user.Name)
  
   updateUserName(userNameSign);
@@ -921,26 +989,27 @@ const handlePostRequestLogin = async () => {
 
       {profile&&
       <>
-      <div className='profile' >
+      <div className='profilez' >
        
           <div >
           {image ? (
-        <img className='profileImage' src={image} />
+        <img className='proImage12' src={image} />
       ) : (
         <img
-          className='profileImage'
-          src="http://b.zmtcdn.com/web/assets/2267aec184e096c98c46a1565a5563661664945464.png?fit=around%7C100%3A100&amp;crop=100%3A100%3B%2A%2C%2A"
+          className='proImagez'
+          src="https://b.zmtcdn.com/web/assets/2267aec184e096c98c46a1565a5563661664945464.png?fit=around%7C100%3A100&amp;crop=100%3A100%3B%2A%2C%2A"
           alt="Default Image"
         />
       )}
+        
           </div>
           {/* <div>    */}
-              <span onClick={handleLogoutShow} className='profileName'>{userNameSign}</span>
+              <div onClick={handleLogoutShow} className='profileName'>{userNameSign}</div>
            
             
           {/* </div> */}
           <div  className='profielName1' onClick={handleLogoutShow} >
-            <svg  className='profielName1' xmlns="http://www.w3.org/2000/svg"  width="22" height="30" viewBox="0 0 20 20" aria-labelledby="icon-svg-title- icon-svg-desc-" role="img" ><title>chevron-down</title><path d="M4.48 7.38c0.28-0.28 0.76-0.28 1.060 0l4.46 4.48 4.48-4.48c0.28-0.28 0.76-0.28 1.060 0s0.28 0.78 0 1.060l-5 5c-0.3 0.3-0.78 0.3-1.060 0l-5-5c-0.3-0.28-0.3-0.76 0-1.060z"></path></svg>
+            <svg  className='profielName1' xmlns="http://www.w3.org/2000/svg"  width="22" height="33" viewBox="0 0 20 20" aria-labelledby="icon-svg-title- icon-svg-desc-" role="img" ><title>chevron-down</title><path d="M4.48 7.38c0.28-0.28 0.76-0.28 1.060 0l4.46 4.48 4.48-4.48c0.28-0.28 0.76-0.28 1.060 0s0.28 0.78 0 1.060l-5 5c-0.3 0.3-0.78 0.3-1.060 0l-5-5c-0.3-0.28-0.3-0.76 0-1.060z"></path></svg>
             </div>
         </div>
  
@@ -967,13 +1036,13 @@ const handlePostRequestLogin = async () => {
         </div>
       </div>
       }
-{/* 
+
 <Modal
         show={show}
         onHide={handleClose}
         backdrop="static"
         keyboard={false}
-      > */}
+      > 
       {showSignUp&&
       <div className='overlay1' >
         <div className='signUp'>
@@ -1046,7 +1115,7 @@ const handlePostRequestLogin = async () => {
           </div>
       </div>
       }
-{/* </Modal> */}
+
 
 
 
@@ -1069,6 +1138,8 @@ const handlePostRequestLogin = async () => {
       <button onClick={handleOtp} className='otpProceed'>
         Proceed
       </button>
+
+      <div className='errorr'>{er}</div>
       <div className='timer'>
   {timer > 0
     ? `${Math.floor(timer / 60) < 10 ? '0' : ''}${Math.floor(timer / 60)}:${timer % 60 < 10 ? '0' : ''}${timer % 60}`
@@ -1205,7 +1276,7 @@ const handlePostRequestLogin = async () => {
     <div className="inputContainerOtp">
       <input type="text" className="customInput" placeholder='OTP' onChange={handleOtpMobilePhone} />
     </div>
-    {Otpverify && <span style={{color:"red",marginLeft:"20vw",marginBottom:"2vw"}}>{otpVerifyMessage}</span>}
+    {Otpverify && <span style={{color:"red",marginLeft:"17.5vw",marginBottom:"2vw"}}>{otpVerifyMessage}</span>}
     <div>
       <button onClick={handleOtpMobile} className='otpProceed'>
         Proceed
@@ -1255,16 +1326,32 @@ const handlePostRequestLogin = async () => {
 />
     </div>
           <div>
-          <button
-  onClick={handleOtpPhone}
+          {loading ? (
+        <div className='loginCreateAccount'>
+        <div className="loader-container">
+          <div className="loader-dot">.</div>
+          <div className="loader-dot">.</div>
+          <div className="loader-dot">.</div>
+        </div>
+        </div>
+      ) : (
+        <button
+          onClick={() => {
+            setLoading(true);
+            setTimeout(() => {
+              setLoading(false);         
+            }, 500);
+            handleOtpPhone()
+         
+          }}
   className={`loginCreateAccount ${(!numberCheck) ? 'disabled' : ''}`}
   disabled={!numberCheck}
 >
 Send OTP
 </button>
-
+)}
           </div>
-          <div style={{fontSize:"24px",marginLeft:"16vw",marginBottom:"1vw",marginTop:"1vw"}}>or</div>
+          <div style={{fontSize:"24px",marginLeft:"16vw",marginBottom:"0.5vw",marginTop:"0.5vw"}}>or</div>
           <div>
             <button className='loginGoogle'  onClick={handleLoginEmail}>
           <div> <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" fill="red" width="20" height="20">
@@ -1457,7 +1544,7 @@ Send One Time Password
 </div>
 }
 
-
+</Modal>
     </div>
     
   );

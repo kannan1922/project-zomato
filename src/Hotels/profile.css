@@ -607,6 +607,7 @@
   .proImage{
     width: 10vw;
     height: 10vw;
+    cursor: pointer;
     margin-left: 1vw;
   }
   .proImage1{
@@ -616,14 +617,14 @@
     border-radius: 50%;
   }
   .txtmove{
-    margin-left: 30vw;
+    margin-left: 36vw;
     /* float: right; */
   }
   .sc{
     display: flex;
     width: 80%;
     background-color: rgba(.0, .0, .0, 0.5);
-    margin-left: 6vw;
+    margin-left: 10vw;
     padding: 20px;
     margin-top: 2vw;
   }
@@ -684,13 +685,14 @@ margin-left: 2vw;
     margin-top: 1vw;
     align-items: center;
   }
-  .imges1{
+  .imges1 {
     position: absolute;
-    width: 100%;
-    border-radius: 100%;
-    width: 14vw;
+    width: 12vw;
+    height: 12vw;
+    border-radius: 50%; /* Use 50% for a circular shape */
     margin: 3vw 1vw;
   }
+  
   .profilePosition{
     position: relative;
     align-items: center;
@@ -698,10 +700,10 @@ margin-left: 2vw;
   }
   .profileUserPic{
     width: 2vw;
-    margin-left: 4vw;
+    margin-left: 3.5vw;
     z-index: 10000;
     position: absolute;
-    margin-top: 6vw;
+    margin-top: 4.5vw;
   }
   .profileNamez{
     position: absolute;

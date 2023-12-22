@@ -1,31 +1,47 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./filterDesign.css";
-import { useNavigate } from "react-router-dom";
-const FilterResult = (props: any) => {
+import { useNavigate, useLocation } from "react-router-dom";
+const FilterResult1 = (props: any) => {
   const navigate = useNavigate();
+  const location1 = useLocation();
   const [filterParams, setFilterParams] = useState<string[]>([]);
-  const handleNavigateHotelName = (name: string,city:string) => {
+  const handleNavigateHotelName = (name: string, city: string) => {
     let updatedFilterParams = [...filterParams];
-    if(city)
-    updatedFilterParams.push(`${city}`);
+    if (city) updatedFilterParams.push(`${city}`);
     if (name) {
       updatedFilterParams.push(`${name}`);
     }
     setFilterParams(updatedFilterParams);
     const filterUrl = `/Coimbatore/${updatedFilterParams.join("/")}`;
     navigate(filterUrl);
-    // setUrl(window.location.href);
   };
+  const [location, setLocation] = useState('');
 
+
+  useEffect(() => {
+    const pathArray = window.location.pathname.split('/').filter(Boolean);
+    const lastPathSegment = pathArray[pathArray.length - 1];
+    setLocation(lastPathSegment);
+  }, [window.location.pathname]);
+  
+  
+
+  
   return (
+    <>
+
+<div className='top12'>
+      Inspiration for your first order in {location}
+    </div>
     <div className="filterResultFlex">
+     
       {props.result &&
         props.result.map((result: any) => (
           <div
             key={result.id}
             className="wap"
             onClick={() => {
-              handleNavigateHotelName(result.Name,result.Sub_Location);
+              handleNavigateHotelName(result.Name, result.Sub_Location);
             }}
           >
             <img
@@ -39,7 +55,8 @@ const FilterResult = (props: any) => {
 
               <div className="RratingColor">
                 <div className="RratingColor1">
-                  {result.Delievery_Rating}
+                  <span className="Rrat">  {result.Delievery_Rating}</span>
+                
                   <div className="RsearchSvg">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -65,7 +82,8 @@ const FilterResult = (props: any) => {
           </div>
         ))}
     </div>
+    </>
   );
 };
 
-export default FilterResult;
+export default FilterResult1;

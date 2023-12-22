@@ -11,13 +11,13 @@ padding: 0px;
   justify-content: center;
 }
 .wap:hover{
-background-color: rgba(.0, .0, .0, .03);
+background-color: floralwhite;
 border-radius: 20px;
-border: 1px solid rgba(.0, .0, .0, .2);
+border: 1px solid rgba(.0, .0, .0, .1);
 }
 .wap {
   border: 1px solid transparent;
-  margin-top: 5vw;
+  margin-top: 3vw;
   box-sizing: border-box;
   padding:1.3vw;
   /* padding-right: -1vw; */
@@ -50,11 +50,14 @@ border: 1px solid rgba(.0, .0, .0, .2);
     font-weight: bold;
     color: white;
   }
+  .Rrat{
+    margin-top: 2px;
+  }
   .RratingColor1 {
     background-color: rgb(36, 150, 63);
     display: flex;
     border-radius: 0.5rem;
-    padding: 1.5px 5px 0px 5px;
+    padding: 1px 5px 0px 5px;
     font-size: 13.5px;
     font-weight: bold;
     color: white;
@@ -68,7 +71,7 @@ border: 1px solid rgba(.0, .0, .0, .2);
   }
   
   .RsearchSvg {
-    padding: 1px 0px 0px 3px;
+    padding: 0px 0px 0px 3px;
     margin-top: 1px;
   }
   .resultDishes{

@@ -1,16 +1,17 @@
 .filterNavbar{
     display: flex;
     /* width: 80%; */
-    margin-top: 2vw;
+    margin-top: 3vw;
     padding: 20px;
 }
 .move{
-    margin-left:9vw;
+    margin-left:11.6vw;
 }
 .filterNavbar.sticky {
     padding: 20px;
     position: sticky;
     top: 0;
+    z-index: 1;
     width: 100%;
     /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); Optional: Add a subtle box shadow when sticky */
     background-color: white; /* Set the background color for the sticky state */

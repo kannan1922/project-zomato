@@ -6,12 +6,13 @@ import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import FilterResult from "./FilterResult";
+import FilterResult1 from "./FilterResultNew";
 import Modal from "react-bootstrap/Modal";
 // import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar  from "../Navbar/Navbar";
-import Sliders from "../Slider/Slider";
 import SliderHotel from "../Slider/SliderHotel";
+import Footer from "../Hotels/Footer";
+import Sliders from "../Slider/Slider";
 const FilterNavbar = () => {
   const [rat, setrat] = useState(false);
   const [filterParams, setFilterParams] = useState<string[]>([]);
@@ -26,21 +27,32 @@ const FilterNavbar = () => {
 
   const handleSubmitFilter= async () => {
     try {
-      console.log("hiii from useeffect");
-      // console.log({url})
-      const trimmedUrl = url.replace("http://localhost:3000/", "");
-      // console.log(`https://zomato-nuit.onrender.com/${trimmedUrl}`)
+      const trimmedUrl = url.replace("http://localhost:3000/", ""); 
       const response = await axios.get(
         `http://localhost:4000/${trimmedUrl}`
       );
       console.log(response.data);
-
       setval(response.data.hotels);
+ 
     } catch (error: any) {
       console.log("Error:", error);
     }
   };
 
+
+  const handleSubmitFilterz= async () => {
+    try {
+      const trimmedUrl = url.replace("http://localhost:3000/Coimbatore", ""); 
+      const response = await axios.get(
+        `http://localhost:4000/${trimmedUrl}`
+      );
+      console.log(response.data);
+      setval(response.data.hotels);
+ 
+    } catch (error: any) {
+      console.log("Error:", error);
+    }
+  };
 
   const handleSubmitFilter1 = async () => {
     try {
@@ -197,8 +209,9 @@ const FilterNavbar = () => {
   useEffect(() => {
     setUrl(window.location.href);
     console.log("byeee");
-    handleSubmitFilter1();
-  }, []);
+    // handleSubmitFilter1();
+    handleSubmitFilterz();
+  }, [window.location.href]);
 
 
 
@@ -211,7 +224,7 @@ const FilterNavbar = () => {
     setUrl(window.location.href);
     console.log("byeee");
     handleSubmitFilter();
- 
+
     const urlSearchParams = new URLSearchParams(window.location.search);
     const rating1: any = urlSearchParams.get("Rating");
     let cuisine2: any = urlSearchParams.get("Cuisine");
@@ -264,47 +277,19 @@ const FilterNavbar = () => {
 
 
 
-  useEffect(() => {
-    const queryParams = new URLSearchParams(window.location.search);
-    queryParams.forEach((value, key) => {
-      console.log(`${key}: ${value}`);
-    });
+//   useEffect(() => {
+//     const queryParams = new URLSearchParams(window.location.search);
+//     queryParams.forEach((value, key) => {
+//       console.log(`${key}: ${value}`);
+//     });
 
-    setUrl(window.location.href);
-    console.log("byeee");
-    handleSubmitFilter();
-
-  }, []);
-
-
-  useEffect(() => {
-    setShow(false);
-
-    let updatedFilterParams = [...filterParams];
-      updatedFilterParams.push(`Pure_veg=${pureveg}`);
-      updatedFilterParams = updatedFilterParams.filter(
-        (param) => !param.startsWith("Pure_veg=")
-      );
-
-    const filterUrl = `/Coimbatore?${updatedFilterParams.join("&")}`;
-    setFilterParams(updatedFilterParams);
-
-    navigate(filterUrl);
-    setUrl(window.location.href);
+//     setUrl(window.location.href);
+//     handleSubmitFilter();
+// // applyFilters2()
+//   }, []);
 
 
 
-    const navigationTimeout = setTimeout(() => {
-      const filterUrl = `/Coimbatore`;
-      setFilterParams(updatedFilterParams);
-  
-      navigate(filterUrl);
-      setUrl(window.location.href);
-    }, 1);
-  
-    // Clean up the timeout to prevent unintended behavior
-    return () => clearTimeout(navigationTimeout);
-  }, []);
 
   const applyFilters1 = () => {
     setShow(false);
@@ -430,12 +415,45 @@ const FilterNavbar = () => {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
+
   }, []);
+  const [showSliders, setShowSliders] = useState(true);
+  const [showDishButton, setShowDishButton] = useState(true);
+  const [dishName, setDishName] = useState<string>('');
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.toString().length > 0) {
+      setShowSliders(false);
+    } else {
+      setShowSliders(true);
+    }
+
+    const urlParams1 = new URLSearchParams(window.location.search);
+    const dishParam = urlParams1.get('Dish'); 
+    if (dishParam) {
+      setShowDishButton(true);
+      setDishName(dishParam);
+    } else {
+      setShowDishButton(false);
+    }
+  }, [window.location.href]);
+
+
+  const handleDishButtonClick = () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const currentDish = urlParams.get('Dish');
+    if (currentDish) {
+      urlParams.delete('Dish');
+      window.history.replaceState({}, '', `${window.location.pathname}${urlParams}`);
+      setShowDishButton(false);
+    }
+  };
   return (
     <div>
        <Navbar/>
-       {/* <Sliders/>  */}
-       <SliderHotel/>
+       {showSliders && <Sliders />}
+       {showSliders && <SliderHotel/>}
    <div className={`filterNavbar ${isSticky ? 'sticky' : ''}`}>
         <div className="move">
           <button
@@ -466,6 +484,19 @@ const FilterNavbar = () => {
           </button>
         </div>
         <div>
+      {/* Render Dish button if it should be visible */}
+      {showDishButton && (
+        <button
+          className={`filterButton active`}  // Add any additional styling or classes
+          onClick={handleDishButtonClick}
+        >
+          {`${dishName}`}
+        </button>
+      )}
+
+      {/* Other components */}
+    </div>
+        <div>
           <button
             className={`filterButton ${!pureveg ? "active" : ""}`}
             onClick={() => {
@@ -492,10 +523,11 @@ const FilterNavbar = () => {
           <button className="filterButton">
             cuisines{" "}
             <svg
+            style={{marginTop:"-8px"}}
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 16 16"
               width="16"
-              height="13"
+              height="20"
               fill="currentColor"
             >
               <path d="M4.48 7.38c0.28-0.28 0.76-0.28 1.060 0l4.46 4.48 4.48-4.48c0.28-0.28 0.76-0.28 1.060 0s0.28 0.78 0 1.060l-5 5c-0.3 0.3-0.78 0.3-1.060 0l-5-5c-0.3-0.28-0.3-0.76 0-1.060z"></path>
@@ -504,12 +536,12 @@ const FilterNavbar = () => {
         </div>
       </div>
 
-      {/* <Modal
-        show={show}
-        onHide={handleClose}
-        backdrop="static"
-        keyboard={false}
-      > */}
+        <Modal
+          show={show}
+          onHide={handleClose}
+          backdrop="static"
+          keyboard={false}
+        >
         {showFilter && (
           <div className="overlayFilter">
             <div className="signUp">
@@ -746,8 +778,9 @@ const FilterNavbar = () => {
             </div>
           </div>
         )}
-      {/* </Modal> */}
-      <FilterResult result={val} />
+      </Modal>
+      <FilterResult1 result={val} />
+      <Footer/>
     </div>
   );
 };

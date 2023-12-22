@@ -8,24 +8,14 @@ import Cookies from "js-cookie";
 import { useUserContext } from "../Context";
 function Profile() {
   const [image,setImage] = useState("");
-  const { userName1, updateUserName } = useUserContext();
+  const { userName1, updateUserName,userPic,updateUserPic } = useUserContext();
  const[showProfileEdit,setProfileEdit]=useState(false)
  const [selectedImage, setSelectedImage] = useState('');
+ const [selectedImage1, setSelectedImage1] = useState('');
  const [userName, setUserName] = useState('');
  const[id,setId]=useState("")
   useEffect(() => {
     const fetchData1 = async () => {
-      // try {
-      //   const response = await  fetch('http://zomato-nuit.onrender.com/user', {
-      //     method: 'GET',
-      //     credentials: 'include', // Include credentials (cookies) in the request
-      //   });
-      //   const data = await response.json();
-      //   console.log('Response:', data);
-      // } catch (error) {
-      //   console.log("cookie",document.cookie);
-      //   console.log('Error111:', error);
-      // }
       const cookieValue = Cookies.get("token1");
       console.log("cookie", cookieValue);
       const postData = {
@@ -41,6 +31,8 @@ function Profile() {
           updateUserName(response.data.user.Name);
           setImage(response.data.user.ProfilePic);
           setId(response.data.user._id)
+     updateUserPic(response.data.user.ProfilePic)
+          // localStorage.setItem('email', email);
         }
       } catch (error) {
         console.log("e", error);
@@ -50,41 +42,65 @@ function Profile() {
   }, []);
 
   useEffect(() => {
-    const storedToken = localStorage.getItem("token");
-    const storedUserName = localStorage.getItem("userName");
-    const storedEmail = localStorage.getItem("email");
-    console.log("Stored Token (Outside fetchData):", storedToken);
-
-    if (storedToken && storedUserName && storedEmail) {
-      updateUserName(storedUserName);
-    }
+   
+    const fetchData1 = async () => {
+      const storedToken = localStorage.getItem("token");
+   
+      const postData = {
+        Token: storedToken,
+      };
+      try {
+        const response = await axios.post(
+          "http://localhost:4000/onload",
+          postData
+        );
+        console.log("name", response.data);
+        if (response.data.user.Name) {
+          updateUserName(response.data.user.Name);
+          setImage(response.data.user.ProfilePic);
+          setId(response.data.user._id)
+     updateUserPic(response.data.user.ProfilePic)
+          // localStorage.setItem('email', email);
+        }
+      } catch (error) {
+        console.log("e", error);
+      }
+    };
+    fetchData1();
   }, []);
   
 
   const handleImageChange = (event) => {
-    const file = event.target.files[0];
 
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        setSelectedImage(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
+      setSelectedImage(event?.target?.files[0]);
+      const file = event.target.files[0];
+  
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          setSelectedImage1(reader.result);
+        };
+        reader.readAsDataURL(file);
+      }
+    };
+  
+    
+
 
   const handleSUbmit=async ()=>{
     try {
-      const postData = {
-        Name: userName,
-        Image:selectedImage,
-      };
-      const response = await axios.post(`http://localhost:4000/user/${id}/edit`, postData);
+      const formData = new FormData();
+      formData.append('Name', userName);
+      formData.append('profile', selectedImage);
+      const response = await axios.post(`http://localhost:4000/user/${id}/edit`,formData,
+      {
+        headers:{"Content-Type":"multipart/form-data"},
+      });
       console.log(response.data.updatedUser)
       console.log(response.data.updatedUser.ProfilePic)
-      setUserName(response.data.updatedUser.Name)
+      updateUserName(response.data.updatedUser.Name)
       setImage(response.data.updatedUser.ProfilePic)
- 
+      updateUserPic(response.data.updatedUser.ProfilePic)
     } catch (error) {
       console.log('Error:', error.response?.data.error);
       
@@ -92,10 +108,10 @@ function Profile() {
   }
   return (
     <>
-      {/* <Navbar/> */}
       <div>
         <div className="profile">
           <div className="sc">
+            
           
 {image ? (
         <img className='proImage1' src={image} />
@@ -582,7 +598,7 @@ function Profile() {
 <div  className="imges1">
 {selectedImage && (
       
-          <img className="imges1" src={selectedImage} alt="Selected"  />
+          <img className="imges1" src={selectedImage1} alt="Selected"  />
    
       )}
         {!selectedImage && (
@@ -591,7 +607,7 @@ function Profile() {
       )}
 </div>
 <div className="profileUserPic">
-<form method="post" action = '/upload' encType="multipart/form-data" >
+{/* <form method="post" action = '/upload' encType="multipart/form-data" > */}
       <label className="custom-file-input">
         <input
           type="file"
@@ -604,7 +620,7 @@ function Profile() {
           <path d="M15.82 4.76h-1.08l-0.86-1.72c-0.4-0.88-1.28-1.48-2.3-1.5v0h-3.36c-1.1 0.04-2.04 0.74-2.4 1.72v0.02l-0.6 1.48h-1.18c-2.24 0-4.04 1.8-4.04 4.04v6.3c0 2.3 1.88 4.18 4.2 4.18v0h11.62c2.3 0 4.18-1.88 4.18-4.18v-6.12c0 0 0-0.02 0-0.02 0-2.32-1.88-4.2-4.18-4.2v0zM10 15.84c-0.02 0-0.04 0-0.04 0-2.32 0-4.2-1.86-4.24-4.18v0c0.04-2.3 1.92-4.16 4.22-4.16 0.02 0 0.04 0 0.06 0v0c0.02 0 0.04 0 0.06 0 2.32 0 4.18 1.86 4.22 4.16v0c-0.04 2.32-1.92 4.18-4.24 4.18 0 0-0.02 0-0.04 0v0zM16.2 9.64c-0.54 0-0.96-0.42-0.96-0.94s0.42-0.96 0.96-0.96c0.52 0 0.94 0.42 0.94 0.96v0c0 0.52-0.42 0.94-0.94 0.94v0zM12.86 11.66c0 1.52-1.28 2.74-2.86 2.74s-2.86-1.22-2.86-2.74c0-1.52 1.28-2.74 2.86-2.74s2.86 1.22 2.86 2.74z"></path>
         </svg>
       </label>
-    </form>
+    {/* </form> */}
 
 </div>
 </div>

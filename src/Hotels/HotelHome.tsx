@@ -3,12 +3,15 @@ import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./HotelHomePage.css";
 import { Link, Route, Routes } from "react-router-dom";
-import { Menu,Photos } from "./Review";
+import Menu from "./Review";
+import Photos from "./Photos";
 import Navbar from "../Navbar/Navbar";
 import OrderOnline from "./OrderOnline";
 import Reviews from "./Review1";
 import OrderOnline1 from "./Overview";
 import Footer from "./Footer";
+import SliderHotel from "../Slider/SliderHotel";
+import Sliders from "../Slider/Slider";
 interface Dish {
   Name: string;
   Images: string;
@@ -83,7 +86,7 @@ const HotelHome: React.FC = () => {
     setUrl(currentUrl);
     console.log(`url: ${url}`);
     handleOtpMobile();
-  }, []);
+  }, [window.location.href]);
 
   const handleButtonClick = (path: string) => {
     navigate(path || "/");
@@ -114,25 +117,26 @@ const HotelHome: React.FC = () => {
   return (
     <>
       <Navbar />
+      {/* <Sliders/> */}
       <div className="restWrap">
         {responseData.map((restaurant, index) => (
           <div>
             <div className="restImageWrap">
               <div>
-                <img className="restImage" src={restaurant.Images} alt="" />
+                <img className="restImage" src={restaurant.Images[0]} alt="" />
               </div>
               <div>
                 <div>
                   {" "}
-                  <img className="restImage1" src={restaurant.Images} alt="" />
+                  <img className="restImage1" src={restaurant.Images[1]} alt="" />
                 </div>
                 <div>
                   {" "}
-                  <img className="restImageA1" src={restaurant.Images} alt="" />
+                  <img className="restImageA1" src={restaurant.Images[2]} alt="" />
                 </div>
               </div>
               <div>
-                <img className="restImage2" src={restaurant.Images} alt="" />
+                <img className="restImage2" src={restaurant.Images[3]} alt="" />
               </div>
             </div>
             <div className={`s ${isSticky ? "sticky" : ""}`}>
@@ -288,6 +292,7 @@ const HotelHome: React.FC = () => {
               >
                 Menu
               </button>
+              <div className="linee"></div>
             </div>
 
             <Routes>

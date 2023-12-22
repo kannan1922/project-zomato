@@ -4,7 +4,13 @@
     justify-content: center;
     align-items: center;
 }
-
+.restImageWrap1{
+    display: flex;
+    /* width: 100%; */
+    /* justify-content: start; */
+    align-items: center;
+    margin-left: 13.2vw;
+}
 .restImageWrap {
     padding-top: 30px;
 }
@@ -36,10 +42,17 @@
     color: red;
 }
 
-
+.linee{
+    border: none;
+    height: 2px;
+    background-color: rgba(0, 0, 0, 0.2);
+    width: 85%;
+    margin: 10px 0; /* Adjust margin as needed */
+  }
+  
 .wholeRoute.sticky {
     position: sticky;
-    top: 11rem;
+    top: 12rem;
     /* Adjust this value based on the height of the first sticky element */
     background-color: white;
     z-index: 1;
@@ -65,7 +78,10 @@
 .restImage2 {
     width: 14vw;
     height: 30vw;
+    /* opacity: 0.7; */
+    filter: brightness(0.5); /* Adjust the value to make it darker (e.g., 0.5 for 50% brightness) */
 }
+
 
 .restName {
     font-size: 3vw;

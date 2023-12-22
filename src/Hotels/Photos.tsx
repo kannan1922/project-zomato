@@ -1,14 +1,14 @@
-
+import React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
-function Menu() {
+function Photos() {
   const [img, setImg] = useState<string[]>([]);
   const handleSubmitFilter = async () => {
     try {
       const url1 = window.location.href;
       const trimmedUrl = url1
         .replace("http://localhost:3000/", "")
-        .replace("/menu", "");
+        .replace("/photos", "");
       console.log(trimmedUrl);
 
       const response = await axios.get(`http://localhost:4000/${trimmedUrl}`);
@@ -39,25 +39,34 @@ function Menu() {
         <div className="restImageWrap1">
           <div>
             <div>
-              <img className="restImage1" src={restaurant.Images[1]} alt="" />
+              <img className="restImage1" src={restaurant.Images[0]} alt="" />
             </div>
-           
+            <div>
+              <img className="restImageA1" src={restaurant.Images[1]} alt="" />
+            </div>
           </div>
           <div>
-          
+            <div>
+              {" "}
+              <img className="restImage1" src={restaurant.Images[1]} alt="" />
+            </div>
             <div>
               {" "}
               <img className="restImageA1" src={restaurant.Images[2]} alt="" />
             </div>
           </div>
           <div>
-          
+            <div>
+              <img className="restImage1" src={restaurant.Images[3]} alt="" />
+            </div>
             <div>
               <img className="restImageA1" src={restaurant.Images[0]} alt="" />
             </div>
           </div>
           <div>
-           
+            <div>
+              <img className="restImage1" src={restaurant.Images[1]} alt="" />
+            </div>
             <div>
               <img className="restImageA1" src={restaurant.Images[2]} alt="" />
             </div>
@@ -68,4 +77,4 @@ function Menu() {
   );
 }
 
-export default Menu;
+export default Photos;

@@ -1,6 +1,7 @@
 import '../Navbar/search.css'
 import { useNavigate } from "react-router-dom";
 import { useState ,useEffect} from 'react';
+
 interface SearchProps {
     results: any[]; 
   }
@@ -29,12 +30,16 @@ interface SearchProps {
       }
       setFilterParams(updatedFilterParams);
       const filterUrl = `/Coimbatore/${updatedFilterParams.join("/")}`;
+      setUrl(filterUrl);
       navigate(filterUrl);
       closeOverlay();
-      setUrl(window.location.href);
+      
     };
 
-
+    useEffect(() => {
+   
+      navigate(url);
+    }, [url]);
 
     return (
         <div className='inputWrapper'>
