@@ -1,0 +1,232 @@
+.validWrap {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+
+}
+
+.validDetails {
+    flex: 20%;
+    justify-content: center;
+    max-width: 230px;
+    box-shadow: rgba(196, 209, 225, 0.5) 0px 0px 60px 0px;
+    max-height: 450px;
+}
+
+
+
+.resInformation {
+    flex: 0.6;
+    /* display: flex; */
+}
+
+.fro{
+    flex:0.6;
+}
+
+.parentContainer {
+    width: 196px;
+    height: 1px;
+    background-color: rgb(245, 245, 245);
+    margin-left: 1.3rem;
+    margin-top: 7px;
+}
+
+.flexInfo {
+    display: flex;
+    align-items: center;
+}
+
+.resNumber {
+    box-sizing: border-box;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    padding: 10px;
+    background-color: blue;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-right: 10px;
+    border: 0;
+    outline: 0;
+    font-size: 12px;
+}
+
+.resPadding {
+    padding-left: 10px;
+    padding-top: 20px;
+}
+
+
+.resHeading {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.resContent {
+    font-size: 13px;
+    color: rgba(.0, .0, .0, 0.5);
+}
+
+.resLine {
+    width: 3px;
+    height: 3.7rem;
+    background-color: rgb(39, 129, 231);
+    margin-top: 15px;
+}
+
+.resLine1 {
+    margin-top: 15px;
+    width: 1.9px;
+    height: 3rem;
+    background-color: rgb(39, 129, 231);
+    /* margin-right: 1.5rem; */
+}
+
+.resInfoHeading {
+    font-size: 2.6vw;
+    font-weight: 400;
+}
+
+.resInformationDetails {
+    border: 1px solid rgba(.0, .0, .0, 0.2);
+    border-radius: 10px;
+    height: 83%;
+}
+.resInformationDetails1 {
+    border: 1px solid rgba(.0, .0, .0, 0.2);
+    border-radius: 10px;
+    /* height: 75%; */
+}
+
+.lightColor {
+    color: rgba(.0, .0, .0, 0.5);
+}
+
+.formContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.flexx {
+    display: flex;
+    flex-direction: row;
+}
+
+.inputWrapper {
+    position: relative;
+    margin: 20px 0px 20px 0px;
+}
+
+.inputWrapper label {
+    position: absolute;
+    top: 13px;
+    left: 10px;
+    transition: transform 0.3s ease-out;
+    pointer-events: none;
+    background-color: white;
+}
+
+
+.inputWrapper input:focus+label,
+.inputWrapper input:not(:placeholder-shown)+label {
+    transform: translateY(-25px);
+}
+
+
+.inputWrapper input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none;
+}
+
+
+.resMap {
+    height: 150px;
+    width: 100%;
+
+}
+
+.resAuto {
+    padding: 10px;
+    background-color: rgba(.0, .0, .0, 0.2);
+    max-width: 90rem;
+    width: 250px;
+    border-radius: 8px;
+    margin: 10px;
+}
+
+.resContainer2 {
+    border: 1px solid rgba(.0, .0, .0, 0.2);
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.verifyButton {
+    padding: 10px 30px;
+    border-radius: 6px;
+    border: none;
+    color: white;
+    background-color: blue;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.act:active {
+    background-color: blue;
+}
+
+
+.resLabel {
+    margin-right: 40px;
+    margin-left: 10px;
+}
+
+.labelContainer {
+    display: flex;
+}
+
+
+.divWithLabels {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.divWithLabels>div {
+    flex: 1;
+    max-width: 2500px;
+}
+
+.resLabel {
+    display: flex;
+    align-items: center;
+}
+
+
+
+.resLabel input[type="checkbox"] {
+    margin-right: 5px;
+    width: 14px;
+    height: 14px;
+    border: 9px solid rgba(.0, .0, .0, 0.5);
+    border-radius: 3px;
+    outline: none;
+    cursor: pointer;
+}
+
+.resLabel span {
+    color: #333;
+}
+.reslight{
+    color: rgba(.0, .0, .0, 0.5);
+    font-size: 14px;
+}
+.resMoveOption{
+    position: absolute;
+}

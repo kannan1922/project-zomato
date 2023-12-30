@@ -52,7 +52,7 @@
 
   
   .location-search input[type="text"] {
-    width: 180px;
+    width: 15vw;
     padding: 10px;
     border: none;
     border-radius: 5px;
@@ -61,7 +61,7 @@
   }
   
   .restaurant-search input[type="text"] {
-    width: 280px;
+    width: 28vw;
     padding: 10px;
     border: none;
     border-radius: 5px;
@@ -78,7 +78,7 @@
   }
   
   .auth-section span {
-    margin-left: 20px;
+    margin-left: 28px;
     cursor: pointer;
     color:rgba(0, 0, 0, 0.5);
     font-size: 1.4vw;
@@ -95,6 +95,9 @@
   .proImagez{
     width: 2.5vw;
     height: 2.5vw;
+  }
+  .lo{
+    margin-left: 10px;
   }
 /*   
   @media screen and (max-width: 768px) {

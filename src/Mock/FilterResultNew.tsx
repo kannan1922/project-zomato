@@ -31,7 +31,7 @@ const FilterResult1 = (props: any) => {
     <>
 
 <div className='top12'>
-      Inspiration for your first order in {location}
+      Best Foods in {location}
     </div>
     <div className="filterResultFlex">
      

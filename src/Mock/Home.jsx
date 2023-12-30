@@ -2,7 +2,7 @@ import React from 'react'
 import './home.css'
 import { useNavigate } from "react-router-dom";
 import { useState ,useEffect} from 'react';
-import Footer from '../Hotels/Footer';
+import LocationComponent from './Location';
 function Home() {
 
         const navigate = useNavigate();
@@ -16,31 +16,10 @@ function Home() {
           const filterUrl = `/Coimbatore/${updatedFilterParams.join("/")}`;
           navigate(filterUrl);
         };
+        // console.log("1")
   return (
-    <>
-
-<div className="imageContainer">
-        <div className="homeText">
-          <div className="homeflex">
-    
-          </div>
-          </div>
-          <div className="homeText1">
-            <img className="homezomato" src="https://b.zmtcdn.com/web_assets/8313a97515fcb0447d2d77c276532a511583262271.png" alt="" />
-       <div className="hmetext">
-       <div className="homeText2">Find the best restaurants, cafés</div>
-            <div className="homeText2">and bars in India</div>
-       </div>
-      
-          </div>
-        
-        <img
-          src="https://b.zmtcdn.com/web_assets/81f3ff974d82520780078ba1cfbd453a1583259680.png"
-          alt=""
-        />
-      </div>
-   
     <div className='l'>
+        <LocationComponent/>
         <div className="sc-1mo3ldo-0 sc-OzIbW cuwUeA snipcss-a4GCD">
   <div className="sc-lmuQER bmrcVD">
     <div className="sc-bke1zw-0 fIuLDK">
@@ -341,7 +320,7 @@ function Home() {
   </div>
   <div className="sc-bKYoiv lpkqPT">
     <div className="title">
-      <p style={{fontSize:"28px"}}>
+      <p style={{fontSize:"18px"}}>
         Popular localities in and around Coimbatore
 
       </p>
@@ -350,7 +329,31 @@ function Home() {
       <div className="sc-bke1zw-0 fIuLDK">
         <div className="sc-bke1zw-1 gLbmAn">
      
-
+            <div className="sc-ckixc eviByX panel" onClick={()=>{handleNavigateHotelName("RS Puram")}}>
+              <div className="sc-cbcvrX hzyFiM img-title-box">
+                <h5 className="sc-1uh2q3e-0 sc-eYcuFG gSKWYS">RS Puram</h5>
+                <p className="sc-1hez2tp-0 bBZBLJ">309 places</p>
+              </div>
+              <i
+                className="sc-rbbb40-1 iFnyeo sc-gyFTku ejIItn"
+                size={15}
+                color="#1C1C1C"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="#1C1C1C"
+                  width={15}
+                  height={15}
+                  viewBox="0 0 20 20"
+                  aria-labelledby="icon-svg-title- icon-svg-desc-"
+                  role="img"
+                  className="sc-rbbb40-0 jKmKoK"
+                >
+                  <title>chevron-right</title>
+                  <path d="M6.98 15.94c-0.3-0.28-0.3-0.76 0-1.060l4.46-4.46-4.46-4.48c-0.3-0.28-0.3-0.76 0-1.060s0.76-0.28 1.060 0l5 5c0.28 0.3 0.28 0.78 0 1.060l-5 5c-0.3 0.3-0.78 0.3-1.060 0z"></path>
+                </svg>
+              </i>
+            </div>
 
         </div>
         <div className="sc-bke1zw-1 gGzIKR">
@@ -470,32 +473,6 @@ function Home() {
               </i>
             </div>
                 </div>
-
-                <div className="sc-ckixc eviByX panel" onClick={()=>{handleNavigateHotelName("RS Puram")}}>
-              <div className="sc-cbcvrX hzyFiM img-title-box">
-                <h5 className="sc-1uh2q3e-0 sc-eYcuFG gSKWYS">RS Puram</h5>
-                <p className="sc-1hez2tp-0 bBZBLJ">309 places</p>
-              </div>
-              <i
-                className="sc-rbbb40-1 iFnyeo sc-gyFTku ejIItn"
-                size={15}
-                color="#1C1C1C"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="#1C1C1C"
-                  width={15}
-                  height={15}
-                  viewBox="0 0 20 20"
-                  aria-labelledby="icon-svg-title- icon-svg-desc-"
-                  role="img"
-                  className="sc-rbbb40-0 jKmKoK"
-                >
-                  <title>chevron-right</title>
-                  <path d="M6.98 15.94c-0.3-0.28-0.3-0.76 0-1.060l4.46-4.46-4.46-4.48c-0.3-0.28-0.3-0.76 0-1.060s0.76-0.28 1.060 0l5 5c0.28 0.3 0.28 0.78 0 1.060l-5 5c-0.3 0.3-0.78 0.3-1.060 0z"></path>
-                </svg>
-              </i>
-            </div>
         <div className="sc-bke1zw-1 jdRPl" onClick={()=>{handleNavigateHotelName("Peelamedu")}}>
             <div className="sc-ckixc eviByX panel">
               <div className="sc-cbcvrX hzyFiM img-title-box">
@@ -608,9 +585,8 @@ function Home() {
     </div>
   </div>
 </div>
-<Footer/>
+
     </div>
-    </>
   )
 }
 

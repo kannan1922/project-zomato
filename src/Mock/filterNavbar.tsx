@@ -291,111 +291,163 @@ const FilterNavbar = () => {
 
 
 
-  const applyFilters1 = () => {
-    setShow(false);
+const applyFilters1 = () => {
+  setShow(false);
 
-    let updatedFilterParams = [...filterParams];
+  let updatedFilterParams = [...filterParams];
 
-    if (pureveg) {
-      updatedFilterParams.push(`Pure_veg=${pureveg}`);
+  if (pureveg) {
+    updatedFilterParams.push(`Pure_veg=${pureveg}`);
+  } else {
+    updatedFilterParams = updatedFilterParams.filter(
+      (param) => !param.startsWith("Pure_veg=")
+    );
+  }
+
+  // Extract the main location and sublocation from the path
+  const pathSegments = window.location.pathname.split('/');
+  const mainLocation = pathSegments[1];
+  const subLocation = pathSegments.slice(2).join('/');
+
+  // Construct the base URL with the main location
+  let filterUrl = `/${mainLocation}`;
+
+  // Append the sublocation if it exists
+  if (subLocation) {
+    filterUrl += `/${subLocation}`;
+  }
+
+  if (updatedFilterParams.length > 0) {
+    filterUrl += `?${updatedFilterParams.join("&")}`;
+  }
+
+  setFilterParams(updatedFilterParams);
+
+  navigate(filterUrl);
+  setUrl(window.location.href);
+};
+
+const applyFilters = () => {
+  setShowFilter(false);
+  setShow(false);
+
+  let updatedFilterParams = [...filterParams];
+
+  const addOrUpdateParam = (paramKey: string, paramValue: any) => {
+    const existingParamIndex = updatedFilterParams.findIndex((param) =>
+      param.startsWith(`${paramKey}=`)
+    );
+
+    if (paramValue !== null && paramValue !== undefined) {
+      const newParam = `${paramKey}=${paramValue}`;
+      if (existingParamIndex !== -1) {
+        updatedFilterParams[existingParamIndex] = newParam;
+      } else {
+        updatedFilterParams.push(newParam);
+      }
+    } else {
+      updatedFilterParams = removeParam(updatedFilterParams, paramKey);
+    }
+  };
+
+  const removeParam = (params: string[], paramKey: string) => {
+    return params.filter((param) => !param.startsWith(`${paramKey}=`));
+  };
+
+  addOrUpdateParam("Rating", rating > 0 ? rating / 20 : null);
+  if (rating > 0) setrat(false);
+  const isSouthIndianSelected = selectedOptions.South_Indian;
+  const isChineseSelected = selectedOptions.Chinese;
+
+  if (isChineseSelected || isSouthIndianSelected) {
+    const selectedCuisines = Object.keys(selectedOptions)
+      .filter(
+        (option) => selectedOptions[option as keyof typeof selectedOptions]
+      )
+      .join(",");
+    addOrUpdateParam("Cuisine", selectedCuisines || null);
+  } else {
+    updatedFilterParams = removeParam(updatedFilterParams, "Cuisine");
+  }
+
+  const priceRangeParam = `${value1}-${value2}`;
+  addOrUpdateParam(
+    "cpp",
+    value1 !== null && value2 !== null ? priceRangeParam : null
+  );
+
+  // Extract the main location and sublocation from the path
+  const pathSegments = window.location.pathname.split('/');
+  const mainLocation = pathSegments[1];
+  const subLocation = pathSegments.slice(2).join('/');
+
+  // Construct the base URL with the main location
+  let filterUrl = `/${mainLocation}`;
+
+  // Append the sublocation if it exists
+  if (subLocation) {
+    filterUrl += `/${subLocation}`;
+  }
+
+  if (updatedFilterParams.length > 0) {
+    filterUrl += `?${updatedFilterParams.join("&")}`;
+  }
+
+  setFilterParams(updatedFilterParams);
+  navigate(filterUrl);
+  setUrl(window.location.href);
+};
+
+
+const applyFilters2 = () => {
+  setShowFilter(false);
+  setShow(false);
+
+  let updatedFilterParams = [...filterParams];
+
+  setrat(!rat);
+  const addOrUpdateParam = (paramKey: string, paramValue: any) => {
+    const existingParamIndex = updatedFilterParams.findIndex((param) =>
+      param.startsWith(`${paramKey}=`)
+    );
+
+    if (paramValue !== null && paramValue !== undefined && rat === true) {
+      const newParam = `${paramKey}=${paramValue}`;
+      if (existingParamIndex !== -1) {
+        updatedFilterParams[existingParamIndex] = newParam;
+      } else {
+        updatedFilterParams.push(newParam);
+      }
     } else {
       updatedFilterParams = updatedFilterParams.filter(
-        (param) => !param.startsWith("Pure_veg=")
+        (param) => !param.startsWith(`${paramKey}=`)
       );
     }
-
-    const filterUrl = `/Coimbatore?${updatedFilterParams.join("&")}`;
-    setFilterParams(updatedFilterParams);
-
-    navigate(filterUrl);
-    setUrl(window.location.href);
-  };
-  const applyFilters = () => {
-    setShowFilter(false);
-    setShow(false);
-
-    let updatedFilterParams = [...filterParams];
-
-    const addOrUpdateParam = (paramKey: string, paramValue: any) => {
-      const existingParamIndex = updatedFilterParams.findIndex((param) =>
-        param.startsWith(`${paramKey}=`)
-      );
-
-      if (paramValue !== null && paramValue !== undefined) {
-        const newParam = `${paramKey}=${paramValue}`;
-        if (existingParamIndex !== -1) {
-          updatedFilterParams[existingParamIndex] = newParam;
-        } else {
-          updatedFilterParams.push(newParam);
-        }
-      } else {
-        updatedFilterParams = removeParam(updatedFilterParams, paramKey);
-      }
-    };
-
-    const removeParam = (params: string[], paramKey: string) => {
-      return params.filter((param) => !param.startsWith(`${paramKey}=`));
-    };
-
-    addOrUpdateParam("Rating", rating > 0 ? rating / 20 : null);
-    if (rating > 0) setrat(false);
-    const isSouthIndianSelected = selectedOptions.South_Indian;
-    const isChineseSelected = selectedOptions.Chinese;
-
-    if (isChineseSelected || isSouthIndianSelected) {
-      const selectedCuisines = Object.keys(selectedOptions)
-        .filter(
-          (option) => selectedOptions[option as keyof typeof selectedOptions]
-        )
-        .join(",");
-      addOrUpdateParam("Cuisine", selectedCuisines || null);
-    } else {
-      updatedFilterParams = removeParam(updatedFilterParams, "Cuisine");
-    }
-    const priceRangeParam = `${value1}-${value2}`;
-    addOrUpdateParam(
-      "cpp",
-      value1 !== null && value2 !== null ? priceRangeParam : null
-    );
-    const filterUrl = `/Coimbatore?${updatedFilterParams.join("&")}`;
-    setFilterParams(updatedFilterParams);
-    navigate(filterUrl);
-    setUrl(window.location.href);
   };
 
-  const applyFilters2 = () => {
-    setShowFilter(false);
-    setShow(false);
+  addOrUpdateParam("Rating", rating > 0 ? rating / 20 : null);
 
-    let updatedFilterParams = [...filterParams];
+  // Extract the main location and sublocation from the path
+  const pathSegments = window.location.pathname.split('/');
+  const mainLocation = pathSegments[1];
+  const subLocation = pathSegments.slice(2).join('/');
 
-    setrat(!rat);
-    const addOrUpdateParam = (paramKey: string, paramValue: any) => {
-      const existingParamIndex = updatedFilterParams.findIndex((param) =>
-        param.startsWith(`${paramKey}=`)
-      );
 
-      if (paramValue !== null && paramValue !== undefined && rat == true) {
-        const newParam = `${paramKey}=${paramValue}`;
-        if (existingParamIndex !== -1) {
-          updatedFilterParams[existingParamIndex] = newParam;
-        } else {
-          updatedFilterParams.push(newParam);
-        }
-      } else {
-        updatedFilterParams = updatedFilterParams.filter(
-          (param) => !param.startsWith(`${paramKey}=`)
-        );
-      }
-    };
+  let filterUrl = `/${mainLocation}`;
 
-    addOrUpdateParam("Rating", rating > 0 ? rating / 20 : null);
-    const filterUrl = `/Coimbatore?${updatedFilterParams.join("&")}`;
+  if (subLocation) {
+    filterUrl += `/${subLocation}`;
+  }
 
-    setFilterParams(updatedFilterParams);
-    navigate(filterUrl);
-    setUrl(window.location.href);
-  };
+  if (updatedFilterParams.length > 0) {
+    filterUrl += `?${updatedFilterParams.join("&")}`;
+  }
+
+  setFilterParams(updatedFilterParams);
+  navigate(filterUrl);
+  setUrl(window.location.href);
+};
+
 
 
   const [isSticky, setSticky] = useState(false);
@@ -769,7 +821,8 @@ const FilterNavbar = () => {
             </div>
             <div className="line2"></div>
             <div className="applyfilter">
-              <div className="filterClear">Clear all</div>
+              <div className="filterClear" onClick={()=>{setShowFilter(false);
+                navigate("/Coimbatore");setShow(false)}}>Clear all</div>
               <div>
                 <button className="filterApply" onClick={() => applyFilters()}>
                   Apply

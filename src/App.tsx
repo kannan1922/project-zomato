@@ -19,6 +19,7 @@ import Footer from "./Hotels/Footer";
 
 import { UserContextProvider } from "./Context";
 import Home from "./Mock/Home";
+import AddForm from "./Navbar/Form/AddForm";
 
 
 function App() {
@@ -36,7 +37,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Test />}></Route>
           <Route path="/Coimbatore" element={<FilterNavbar />}></Route>
-
+          <Route path="/add" element={<AddForm />}></Route>
           <Route path="/:city/:area/:hotel/*" element={<HotelHome />} />
           <Route path="/" element={<Menu />} />
           <Route path="reviews" element={<Reviews />} />

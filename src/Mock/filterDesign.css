@@ -17,12 +17,12 @@ border: 1px solid rgba(.0, .0, .0, .1);
 }
 .wap {
   border: 1px solid transparent;
-  margin-top: 3vw;
+  margin-top: 1vw;
   box-sizing: border-box;
   padding:1.3vw;
   /* padding-right: -1vw; */
   width: calc(33.33% - 5vw); /* Adjust the width as needed, and subtract padding */
-
+cursor: pointer;
 }
 
 /* Add any other styles as needed for your specific layout */

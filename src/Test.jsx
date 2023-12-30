@@ -4,7 +4,7 @@ import Footer from "./Hotels/Footer";
 function Test() {
   const navigate = useNavigate();
   const handlecbe = () => {
-    navigate("/Coimbatore?Rating=4");
+    navigate("/Coimbatore");
   };
 
   

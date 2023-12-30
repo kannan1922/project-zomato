@@ -69,19 +69,17 @@ function Sliders() {
   const handleNavigateHotelName = (name: string) => {
     const getFilterParamsFromUrl = () => {
       const urlParams = new URLSearchParams(window.location.search);
-      const paramsFromUrl: any = [];
+      const paramsFromUrl: string[] = [];
       urlParams.forEach((value, key) => {
         paramsFromUrl.push(`${key}=${value}`);
       });
       setFilterParams(paramsFromUrl);
-      console.log(filterParams);
     };
   
     getFilterParamsFromUrl();
   
     setFilterParams((prevFilterParams) => {
       let updatedFilterParams = [...prevFilterParams];
-      console.log(updatedFilterParams);
   
       // Check if Dish parameter already exists
       const existingDishIndex = updatedFilterParams.findIndex((param) =>
@@ -98,13 +96,29 @@ function Sliders() {
         }
       }
   
-      const filterUrl = `/Coimbatore?${updatedFilterParams.join('&')}`;
-      // const filterUrl = `/Coimbatore?Dish=${updatedFilterParams.join("/")}`;
+      // Extract the main location and sublocation from the path
+      const pathSegments = window.location.pathname.split('/');
+      const mainLocation = pathSegments[1];
+      const subLocation = pathSegments.slice(2).join('/');
+  
+      // Construct the base URL with the main location
+      let filterUrl = `/${mainLocation}`;
+  
+      // Append the sublocation if it exists
+      if (subLocation) {
+        filterUrl += `/${subLocation}`;
+      }
+  
+      if (updatedFilterParams.length > 0) {
+        filterUrl += `?${updatedFilterParams.join('&')}`;
+      }
+  
       navigate(filterUrl);
   
       return updatedFilterParams;
     });
   };
+  
   
   
   return (
